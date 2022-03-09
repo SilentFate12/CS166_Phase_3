@@ -125,11 +125,13 @@ The following files should be submitted:
 If you have any schema or tables modifications you should include your changes into the files and 
 leave necessary comments for them. Modify the following files: 
 CS166_Project/sql/src/create_tables.sql, CS166_Project/sql/src/load_data.sql 
+
 (b) System Implementation. 
 Submit your source file(s). You should make sure that your code can compiles and run successfully. 
 Any special requirement for compiling and running should be stated clearly in your project 
 report, or a README file which comes with your source code. Please put all your source code 
 within the CS166_Project/java/src directory. 
+
 (c) Other scripts, like triggers, stored procedures, and indexes. 
 You  should  provide  descriptions  for  these  features  and  include  all  your  scripts  within  the 
 CS166_Project/sql/src directory. 
