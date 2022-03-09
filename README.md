@@ -121,6 +121,7 @@ will be posted through elearn later.
  
 2. Files 
 The following files should be submitted: 
+
 (a) Create Tables, Bulkload Data Scripts. 
 If you have any schema or tables modifications you should include your changes into the files and 
 leave necessary comments for them. Modify the following files: 
