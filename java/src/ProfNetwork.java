@@ -366,7 +366,7 @@ public class ProfNetwork {
     * Check log in credentials for an existing user
     * @return User login or null is the user does not exist
     **/
-   public static String LogIn(Messenger esql){
+   public static String LogIn(ProfNetwork esql){
       try{
          System.out.print("\tEnter user login: ");
          String login = in.readLine();
@@ -395,7 +395,7 @@ public class ProfNetwork {
  * case 7: SendConnectionRequest(esql); break;
  * case 8: DecideRequests(esql); break;
  */
-   public static String FriendList(Messenger esql, String authorisedUser){
+   public static String FriendList(ProfNetwork esql, String authorisedUser){
       try{
          String query = "SELECT * FROM Connection WHERE userId = " + authorisedUser;
          int userNum = esql.executeQueryAndPrintResult(query);
