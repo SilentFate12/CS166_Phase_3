@@ -230,13 +230,13 @@ public class ProfNetwork {
          System.err.println (
             "Usage: " +
             "java [-classpath <classpath>] " +
-            Messenger.class.getName () +
+            ProfNetwork.class.getName () +
             " <dbname> <port> <user>");
          return;
       }//end if
 
       Greeting();
-      Messenger esql = null;
+      ProfNetwork esql = null;
       try{
          // use postgres JDBC driver.
          Class.forName ("org.postgresql.Driver").newInstance ();
@@ -245,7 +245,7 @@ public class ProfNetwork {
          String dbname = args[0];
          String dbport = args[1];
          String user = args[2];
-         esql = new Messenger (dbname, dbport, user, "");
+         esql = new ProfNetwork (dbname, dbport, user, "");
 
          boolean keepon = true;
          while(keepon) {
@@ -343,7 +343,7 @@ public class ProfNetwork {
     * Creates a new user with privided login, passowrd and phoneNum
     * An empty block and contact list would be generated and associated with a user
     **/
-   public static void CreateUser(Messenger esql){
+   public static void CreateUser(ProfNetwork esql){
       try{
          System.out.print("\tEnter user login: ");
          String login = in.readLine();
