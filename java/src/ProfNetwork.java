@@ -474,11 +474,14 @@ public class ProfNetwork {
 						 " VALUES(" + authorisedUser + ", " + company + ", " +
 						 role + ", " + location + ", " + startDate + ", " +
 						 endDate + ")";
+				 	 int userNum = esql.executeQuery(createWorkExperience);
+				 	 System.out.println("Work Experience Created!");
 				 	 break;
-				 case 2: System.out.print 
-				 	
-				 	break;
-				 default: System.out.println("Please select one of the three options."
+				 case 2: System.out.println("Which previous company are you updating for?: ");
+				 	 String prevCompany = in.readLine();
+				 	 break;
+				 default: System.out.println("Please select one of the three options.");
+				 	  break;
 			 }
 		 
 		 	 break;
