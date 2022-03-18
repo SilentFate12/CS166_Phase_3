@@ -419,8 +419,75 @@ public class ProfNetwork {
    }//end
    public static String UpdateProfile(ProfNetwork esql, String authorisedUser){
       try{
-         String query = "SELECT * FROM Connection WHERE userId = " + authorisedUser;
-         int userNum = esql.executeQueryAndPrintResult(query);
+	 
+	 System.out.println("What do you want to update? \n" +
+			    "***************************\n" +
+			    "OPTIONS:\n" +
+			    "1 for Email\n" +
+			    "2 for Name\n" +
+			    "3 for Date of Birth\n" +
+			    "4 for Work-Related Options\n" +
+			    "5 for School-Related Options\n" +
+			    "6 to exit."; 
+	 switch(readChoice()) {
+		 case 1: System.out.println("Enter your new email: ");
+		 	 String newEmail = in.readLine();
+		 	 String emailQuery = "UPDATE User SET email = " +
+				 newEmail + " WHERE userId = " + authorisedUser;
+		 	 int userNum = esql.executeQuery(emailQuery);
+		 	 System.out.println("Email updated!");
+		 	 break;
+		 case 2: System.out.println("Enter your new name: ");
+		 	 String newName = in.readLine();
+		 	 String nameQuery = "UPDATE User SET name = " +
+				 newName + " WHERE userId = " + authorisedUser;
+		 	 int userNum = esql.executeQuery(nameQuery);
+		 	 System.out.println("Name updated!");
+		 	 break;
+		 case 3: System.out.println("Enter your new date of birth: ");
+		 	 String newDOB = in.readLine();
+		 	 String DOBQuery = "UPDATE User SET dateofbirth = " +
+				 newDOB + " WHERE userId = " + authorisedUser;
+		 	 int userNum = esql.executeQuery(DOBQuery);
+		 	 System.out.println("Date of Birth updated!");
+		 	 break;
+		 case 4: System.out.println("Which part of your Work would you like to change?\n" +
+					    "*************************************************\n" +
+					    "OPTIONS:\n" +
+					    "1 for Adding a New Work Experience\n" +
+					    "2 for Updating a Previous Work Experience\n" +
+					    "3 to exit";
+			 switch(readChoice()) {
+				 case 1: System.out.println("Please input your company: ");
+				 	 String company = in.readLine();
+				  	 System.out.println("Please input your role in the company: ");
+				 	 String role = in.readLine();
+				 	 System.out.println("Please input your starting date: ");
+				 	 String startDate = in.readLine();
+				 	 System.out.println("If you worked at a location, please enter it. Otherwise just press [ENTER]: ");
+				 	 String location = in.readLine();
+				 	 System.out.println("If you already left this job, please enter your ending date." +
+							     " Otherwise just press [ENTER]: ");
+				 	 String endDate = in.readLine();
+				 	 String createWorkExperience = "INSERT INTO Work_Experience(" +
+						 "userId, company, role, location, startdate, enddate)" +
+						 " VALUES(" + authorisedUser + ", " + company + ", " +
+						 role + ", " + location + ", " + startDate + ", " +
+						 endDate + ")";
+				 	 break;
+				 case 2: System.out.print 
+				 	
+				 	break;
+				 default: System.out.println("Please select one of the three options."
+			 }
+		 
+		 	 break;
+		 case 5: break;
+		 case 6: break;
+		 default: System.out.println("Unrecognized input, exiting...");
+			  break;
+	 }
+	 
       }catch(Exception e){
          System.err.println (e.getMessage ());
          return null;
