@@ -397,6 +397,70 @@ public class ProfNetwork {
  */
    public static String FriendList(ProfNetwork esql, String authorisedUser){
       try{
+         String query = "SELECT * FROM Connection C WHERE C.userId = " + authorisedUser
+	 + " AND C.status = Accepted";
+         int userNum = esql.executeQueryAndPrintResult(query);
+      }catch(Exception e){
+         System.err.println (e.getMessage ());
+         return null;
+      }
+   } 
+   public static String FriendProfile(ProfNetwork esql, String authorisedUser){
+      try{
+         String query = "SELECT * FROM Connection WHERE userId = " + authorisedUser;
+         int userNum = esql.executeQueryAndPrintResult(query);
+      }catch(Exception e){
+         System.err.println (e.getMessage ());
+         return null;
+      }
+   }//end
+   public static String UpdateProfile(ProfNetwork esql, String authorisedUser){
+      try{
+         String query = "SELECT * FROM Connection WHERE userId = " + authorisedUser;
+         int userNum = esql.executeQueryAndPrintResult(query);
+      }catch(Exception e){
+         System.err.println (e.getMessage ());
+         return null;
+      }
+   }//end
+   public static String UpdatePassword(ProfNetwork esql, String authorisedUser){
+      try{
+         String query = "SELECT * FROM Connection WHERE userId = " + authorisedUser;
+         int userNum = esql.executeQueryAndPrintResult(query);
+      }catch(Exception e){
+         System.err.println (e.getMessage ());
+         return null;
+      }
+   }//end
+   public static String SendMessage(ProfNetwork esql, String authorisedUser){
+      try{
+         String query = "SELECT * FROM Connection WHERE userId = " + authorisedUser;
+         int userNum = esql.executeQueryAndPrintResult(query);
+      }catch(Exception e){
+         System.err.println (e.getMessage ());
+         return null;
+      }
+   }//end
+   public static String ViewMessages(ProfNetwork esql, String authorisedUser){
+      try{
+         String query = "SELECT * FROM Connection WHERE userId = " + authorisedUser;
+         int userNum = esql.executeQueryAndPrintResult(query);
+      }catch(Exception e){
+         System.err.println (e.getMessage ());
+         return null;
+      }
+   }//end
+   public static String SendConnectionRequest(ProfNetwork esql, String authorisedUser){
+      try{
+         String query = "SELECT * FROM Connection WHERE userId = " + authorisedUser;
+         int userNum = esql.executeQueryAndPrintResult(query);
+      }catch(Exception e){
+         System.err.println (e.getMessage ());
+         return null;
+      }
+   }//end
+   public static String DecideRequests(ProfNetwork esql, String authorisedUser){
+      try{
          String query = "SELECT * FROM Connection WHERE userId = " + authorisedUser;
          int userNum = esql.executeQueryAndPrintResult(query);
       }catch(Exception e){
