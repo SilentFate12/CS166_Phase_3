@@ -263,7 +263,7 @@ public class ProfNetwork {
                case 2: authorisedUser = LogIn(esql); break;
 	       case 3: RecoverPassword(esql); break;
 	       case 4: SearchPeople(esql); break;
-	       case 12: keepon = false; break;
+	       case 5: keepon = false; break;
                default : System.out.println("Unrecognized choice!"); break;
             }//end switch
             if (authorisedUser != null) {
