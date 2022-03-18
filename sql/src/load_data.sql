@@ -1,4 +1,4 @@
-COPY USR(userId, password, email, name, dateOfBirth)
+COPY USR(userId, password, email, TRIM(name), dateOfBirth)
 FROM 'USR.csv'
 DELIMITER ','
 CSV HEADER;
