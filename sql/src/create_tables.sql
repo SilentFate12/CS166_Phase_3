@@ -22,7 +22,7 @@ CREATE TABLE WORK_EXPR(
 	endDate date,
 	PRIMARY KEY(userId,company,role,startDate),
 	FOREIGN KEY (userId)
-		REFERENCES User(userId)
+		REFERENCES USR(userId)
 	);
 
 CREATE TABLE EDUCATIONAL_DETAILS(
@@ -34,7 +34,7 @@ CREATE TABLE EDUCATIONAL_DETAILS(
 	enddate date,
 	PRIMARY KEY(userId,major,degree),
 	FOREIGN KEY(userId)
-		REFERENCES User(userId)
+		REFERENCES USR(userId)
 	);
 
 CREATE TABLE MESSAGE(
@@ -47,9 +47,9 @@ CREATE TABLE MESSAGE(
 	status char(30) NOT NULL,
 	PRIMARY KEY(msgId),
 	FOREIGN KEY(senderId) 
-		REFERENCES User(userId),
+		REFERENCES USR(userId),
 	FOREIGN KEY(receiverId) 
-		REFERENCES User(userId)
+		REFERENCES USR(userId)
 );
 
 CREATE TABLE CONNECTION_USR(
@@ -58,5 +58,5 @@ CREATE TABLE CONNECTION_USR(
 	status char(30) NOT NULL,
 	PRIMARY KEY(userId,connectionId),
 	FOREIGN KEY(userId) 
-		REFERENCES User(userId)
+		REFERENCES USR(userId)
 );
