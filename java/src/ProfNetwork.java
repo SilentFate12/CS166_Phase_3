@@ -496,10 +496,34 @@ public class ProfNetwork {
          return null;
       }
    }//end
-   public static String UpdatePassword(ProfNetwork esql, String authorisedUser){
+   public static String UpdatePassword(ProfNetwork esql){
       try{
-         String query = "SELECT * FROM Connection WHERE userId = " + authorisedUser;
-         int userNum = esql.executeQueryAndPrintResult(query);
+	 boolean tryingToLogin = true;
+	 System.out.println("To verify it's you before allowing you to change your password, please log in again: ");
+	 while(tryingToLogin) { 
+	 	String authUser = LogIn(esql);
+	 	if (authUser != null) {
+			 System.out.println("User recognized! Please input your new password: ");
+			 String newPass = in.readLine();
+			 String passQuery = "UPDATE User SET password = " + newPass + "WHERE userId = " + authUser;
+			 int userNum = esql.executeUpdate(passQuery);
+			 System.out.println("Password successfully updated!");
+			 tryingToLogin = false;
+		} else {
+			bool deciding = true;
+			while(deciding) {
+				System.out.println("User not recognized. Do you want to try logging in again? (1 = Yes, 2 = No): ");
+				switch(readChoice()) {
+					case 1: deciding = false; break;
+					case 2: deciding = false;
+						tryingToLogin = false;
+						break;
+					default: System.out.println("Please enter either 1 for yes or 2 for no.");
+						 break;
+				}
+			}
+		}
+	 }
       }catch(Exception e){
          System.err.println (e.getMessage ());
          return null;
