@@ -54,7 +54,7 @@ CREATE TABLE MESSAGE(
 
 CREATE TABLE CONNECTION_USR(
 	userId char(30) NOT NULL, 
-	connectionId char(10) NOT NULL, 
+	connectionId char(30) NOT NULL, 
 	status char(30) NOT NULL,
 	PRIMARY KEY(userId,connectionId),
 	FOREIGN KEY(userId) 
