@@ -407,7 +407,10 @@ public class ProfNetwork {
    } 
    public static String FriendProfile(ProfNetwork esql, String authorisedUser){
       try{
-         String query = "SELECT * FROM Connection WHERE userId = " + authorisedUser;
+	 System.out.println("Input the name of the friend you'd like to visit: ");
+	 String friendName = in.readLine();
+         String query = "SELECT * FROM User U2 WHERE U2.userID EXISTS IN(SELECT C.userID From Connections C WHERE C.userID EXISTS IN" + 
+		 "(SELECT U.userID FROM User U WHERE U.name LIKE %" + friendName + "%))";
          int userNum = esql.executeQueryAndPrintResult(query);
       }catch(Exception e){
          System.err.println (e.getMessage ());
