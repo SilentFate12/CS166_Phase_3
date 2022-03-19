@@ -429,7 +429,7 @@ public class ProfNetwork {
 			    "3 for Date of Birth\n" +
 			    "4 for Work-Related Options\n" +
 			    "5 for School-Related Options\n" +
-			    "6 to exit."; 
+			    "6 to exit."); 
 	 switch(readChoice()) {
 		 case 1: System.out.println("Enter your new email: ");
 		 	 String newEmail = in.readLine();
@@ -457,7 +457,7 @@ public class ProfNetwork {
 					    "OPTIONS:\n" +
 					    "1 for Adding a New Work Experience\n" +
 					    "2 for Updating a Previous Work Experience\n" +
-					    "3 to exit";
+					    "3 to exit");
 			 switch(readChoice()) {
 				 case 1: System.out.println("Please input your company: ");
 				 	 String company = in.readLine();
@@ -616,7 +616,7 @@ public class ProfNetwork {
 	 boolean deciding = true;
 	 while(deciding) {
 		 System.out.println("Select a connection to accept or decline using its connection ID " +
-				    "(If you wish to exit instead, Simply press [Enter]): ";
+				    "(If you wish to exit instead, Simply press [Enter]): ");
 		 String connectionID = in.readLine();
 		 if (connectionID != null) {
 			 boolean deciding2 = true;
