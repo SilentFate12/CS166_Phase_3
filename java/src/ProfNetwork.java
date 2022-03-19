@@ -599,7 +599,7 @@ public class ProfNetwork {
          System.err.println (e.getMessage ());
       }
    }//end
-      public static String SendConnectionRequest(ProfNetwork esql, String authorisedUser){
+      public static void SendConnectionRequest(ProfNetwork esql, String authorisedUser){
       try{
         int connectionLevel=0;
         boolean canAdd=false;
