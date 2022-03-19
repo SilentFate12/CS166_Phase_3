@@ -255,14 +255,14 @@ public class ProfNetwork {
             System.out.println("---------");
             System.out.println("1. Create user");
             System.out.println("2. Log in");
-            System.out.println("3. Recover password");
+            System.out.println("3. Change password");
             System.out.println("4. Search people");
             System.out.println("5. < EXIT");
             String authorisedUser = null;
             switch (readChoice()){
                case 1: CreateUser(esql); break;
                case 2: authorisedUser = LogIn(esql); break;
-	       case 3: RecoverPassword(esql); break;
+	       case 3: ChangePassword(esql); break;
 	       case 4: SearchPeople(esql); break;
 	       case 5: keepon = false; break;
                default : System.out.println("Unrecognized choice!"); break;
@@ -280,8 +280,9 @@ public class ProfNetwork {
 		System.out.println("6. View current messages");
                 System.out.println("7. Send Friend Request");
 		System.out.println("8. Accept/Reject connection requests");
+		System.out.println("9. Search People");
                 System.out.println(".........................");
-                System.out.println("9. Log out");
+                System.out.println("10. Log out");
                 switch (readChoice()){
                    case 1: FriendList(esql, authorisedUser); break;
                    case 2: FriendProfile(esql, authorisedUser); break;
@@ -291,7 +292,8 @@ public class ProfNetwork {
 		   case 6: ViewMessages(esql, authorisedUser); break;
 		   case 7: SendConnectionRequest(esql, authorisedUser); break;
 		   case 8: DecideRequests(esql, authorisedUser); break;
-                   case 9: usermenu = false; break;
+		   case 9: SearchPeople(esql); break;
+                   case 10: usermenu = false; break;
                    default : System.out.println("Unrecognized choice!"); break;
                 }
               }
@@ -650,5 +652,15 @@ public class ProfNetwork {
          return null;
       }
    }//end
-
+   public static String SearchPeople(ProfNetwork esql){
+      try {
+         System.out.println("Enter name of person you want to look for: ");
+	 String userName = in.readLine();
+	 String userQuery = "SELECT * FROM User WHERE name LIKE %" + userName + "%";
+	 esql.executeQueryAndPrintResult(userQuery);
+      }catch(Exception e){
+         System.err.println (e.getMessage ());
+         return null;
+      }
+   }//end
 }//end ProfNetwork
