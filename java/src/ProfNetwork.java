@@ -405,7 +405,6 @@ public class ProfNetwork {
          esql.executeQueryAndPrintResult(query);
       }catch(Exception e){
          System.err.println (e.getMessage ());
-         return null;
       }
    } 
    public static void FriendProfile(ProfNetwork esql, String authorisedUser){
@@ -417,7 +416,6 @@ public class ProfNetwork {
          esql.executeQueryAndPrintResult(query);
       }catch(Exception e){
          System.err.println (e.getMessage ());
-         return null;
       }
    }//end
    public static void UpdateProfile(ProfNetwork esql, String authorisedUser){
@@ -496,7 +494,6 @@ public class ProfNetwork {
 	 
       }catch(Exception e){
          System.err.println (e.getMessage ());
-         return null;
       }
    }//end
    public static void ChangePassword(ProfNetwork esql){
@@ -529,7 +526,6 @@ public class ProfNetwork {
 	 }
       }catch(Exception e){
          System.err.println (e.getMessage ());
-         return null;
       }
    }//end
    public static void SendMessage(ProfNetwork esql, String authorisedUser){
@@ -570,7 +566,6 @@ public class ProfNetwork {
 		 		
       }catch(Exception e){
          System.err.println (e.getMessage ());
-         return null;
       }
    }//end
   public static void ViewMessages(ProfNetwork esql, String authorisedUser){
@@ -598,7 +593,6 @@ public class ProfNetwork {
 	 }
       }catch(Exception e){
          System.err.println (e.getMessage ());
-         return null;
       }
    }//end
    public static void SendConnectionRequest(ProfNetwork esql, String authorisedUser){
@@ -607,7 +601,6 @@ public class ProfNetwork {
          esql.executeQueryAndPrintResult(query);
       }catch(Exception e){
          System.err.println (e.getMessage ());
-         return null;
       }
    }//end
    public static void DecideRequests(ProfNetwork esql, String authorisedUser){
@@ -649,7 +642,6 @@ public class ProfNetwork {
 	 }
       }catch(Exception e){
          System.err.println (e.getMessage ());
-         return null;
       }
    }//end
    public static void SearchPeople(ProfNetwork esql){
@@ -660,7 +652,6 @@ public class ProfNetwork {
 	 esql.executeQueryAndPrintResult(userQuery);
       }catch(Exception e){
          System.err.println (e.getMessage ());
-         return null;
       }
    }//end
 }//end ProfNetwork
