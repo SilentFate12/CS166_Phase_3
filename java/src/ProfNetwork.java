@@ -548,10 +548,29 @@ public class ProfNetwork {
          return null;
       }
    }//end
-   public static String ViewMessages(ProfNetwork esql, String authorisedUser){
+  public static String ViewMessages(ProfNetwork esql, String authorisedUser){
       try{
-         String query = "SELECT m.sendTime,m.contents,m.status FROM Message m WHERE (deleteStatus=0 OR deleteStatus=1 AND senderId= " + authorisedUser") OR (deleteStatus=0 OR deleteStatus=2 AND receiverId="+authorisedUser")";
+	 System.out.println("Displaying messages...");
+	 System.out.println("**********************");
+         String query = "SELECT * FROM Message WHERE senderId = " + authorisedUser +
+		 " AND deletestatus = 0";
          int userNum = esql.executeQueryAndPrintResult(query);
+	 boolean deciding = true;
+	 while(deciding) {
+		 System.out.println("Do you want to delete any messages? (1 for Yes, 2 for No): ");
+		 switch(readChoice()) {
+			 case 1: System.out.println("Which message do you want to delete? (Enter full message ID here): ");
+				 String mID = in.readLine();
+				 String messageQuery = "DELETE FROM Message WHERE messageId = " + mID;
+				 int userNum = esql.executeQuery(messageQuery);
+				 System.out.println("Message successfully deleted!");
+				 deciding = false;
+				 break;
+			 case 2: deciding = false; break;
+			 default: System.out.println("Please enter 1 for yes or 2 for no.");
+				  break;
+		 }
+	 }
       }catch(Exception e){
          System.err.println (e.getMessage ());
          return null;
