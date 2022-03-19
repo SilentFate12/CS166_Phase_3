@@ -398,7 +398,7 @@ public class ProfNetwork {
  * case 7: SendConnectionRequest(esql); break;
  * case 8: DecideRequests(esql); break;
  */
-   public static String FriendList(ProfNetwork esql, String authorisedUser){
+   public static void FriendList(ProfNetwork esql, String authorisedUser){
       try{
          String query = "SELECT * FROM Connection C WHERE C.userId = " + authorisedUser
 	 + " AND C.status = Accepted";
@@ -408,7 +408,7 @@ public class ProfNetwork {
          return null;
       }
    } 
-   public static String FriendProfile(ProfNetwork esql, String authorisedUser){
+   public static void FriendProfile(ProfNetwork esql, String authorisedUser){
       try{
 	 System.out.println("Input the name of the friend you'd like to visit: ");
 	 String friendName = in.readLine();
@@ -420,7 +420,7 @@ public class ProfNetwork {
          return null;
       }
    }//end
-   public static String UpdateProfile(ProfNetwork esql, String authorisedUser){
+   public static void UpdateProfile(ProfNetwork esql, String authorisedUser){
       try{
 	 
 	 System.out.println("What do you want to update? \n" +
@@ -499,7 +499,7 @@ public class ProfNetwork {
          return null;
       }
    }//end
-   public static String ChangePassword(ProfNetwork esql){
+   public static void ChangePassword(ProfNetwork esql){
       try{
 	 boolean tryingToLogin = true;
 	 System.out.println("To verify it's you before allowing you to change your password, please log in again: ");
@@ -532,7 +532,7 @@ public class ProfNetwork {
          return null;
       }
    }//end
-   public static String SendMessage(ProfNetwork esql, String authorisedUser){
+   public static void SendMessage(ProfNetwork esql, String authorisedUser){
       try{
 	 boolean searchingForUser = true;
 	 boolean foundRightUser = false;
@@ -573,7 +573,7 @@ public class ProfNetwork {
          return null;
       }
    }//end
-  public static String ViewMessages(ProfNetwork esql, String authorisedUser){
+  public static void ViewMessages(ProfNetwork esql, String authorisedUser){
       try{
 	 System.out.println("Displaying messages...");
 	 System.out.println("**********************");
@@ -601,7 +601,7 @@ public class ProfNetwork {
          return null;
       }
    }//end
-   public static String SendConnectionRequest(ProfNetwork esql, String authorisedUser){
+   public static void SendConnectionRequest(ProfNetwork esql, String authorisedUser){
       try{
          String query = "SELECT * FROM Connection WHERE userId = " + authorisedUser;
          esql.executeQueryAndPrintResult(query);
@@ -610,7 +610,7 @@ public class ProfNetwork {
          return null;
       }
    }//end
-   public static String DecideRequests(ProfNetwork esql, String authorisedUser){
+   public static void DecideRequests(ProfNetwork esql, String authorisedUser){
       try{
          String query = "SELECT * FROM Connection WHERE userId = " + authorisedUser +
 		 " AND status != Accepted AND status != Declined";
@@ -652,7 +652,7 @@ public class ProfNetwork {
          return null;
       }
    }//end
-   public static String SearchPeople(ProfNetwork esql){
+   public static void SearchPeople(ProfNetwork esql){
       try {
          System.out.println("Enter name of person you want to look for: ");
 	 String userName = in.readLine();
