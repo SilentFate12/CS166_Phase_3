@@ -601,8 +601,30 @@ public class ProfNetwork {
    }//end
    public static String SendConnectionRequest(ProfNetwork esql, String authorisedUser){
       try{
-         String query = "SELECT * FROM Connection WHERE userId = " + authorisedUser;
-         int userNum = esql.executeQueryAndPrintResult(query);
+        int connectionLevel=0;
+        boolean canAdd=false;
+	print System.out.println("enter ConnectionId of Recipient");
+	string connection=readLine.in();
+	string query= "SELECT COUNT(*) FROM Connection WHERE userId="+authorizedUser+" AND status=""Accept"";
+	int numC=executeQuery(query);
+	if(numC<5)
+	canAdd=true;
+	else {
+	string query="SELECT Count(*) FROM Connection  WHERE userId= "+authorizedUser+" AND status=""Accept"" AND ConnectionId=Connection";
+	numC=executeQuery(query)
+	while (connectionLevel<4 || numC<=00){
+	connectionLevel+=1;
+	string query="SELECT COUNT(*) FROM Connection WHERE (userId= "+query+" AND status=""Accept"") AND ConnectionId=Connection";
+	numC=executeQuery(query);
+	}
+
+	if(connection>3)
+	canAdd=false;
+	if(numc>0)
+	canAdd=true;
+	}
+
+         
       }catch(Exception e){
          System.err.println (e.getMessage ());
          return null;
