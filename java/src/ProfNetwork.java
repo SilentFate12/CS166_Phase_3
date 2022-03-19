@@ -1,7 +1,7 @@
 /*
  * Template JAVA User Interface
  * =============================
- *
+ * Edward Martens (862256447), Cody Phu (862107077)
  * Database Management Systems
  * Department of Computer Science &amp; Engineering
  * University of California - Riverside
