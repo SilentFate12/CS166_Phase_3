@@ -599,14 +599,33 @@ public class ProfNetwork {
          System.err.println (e.getMessage ());
       }
    }//end
-   public static void SendConnectionRequest(ProfNetwork esql, String authorisedUser){
+      public static String SendConnectionRequest(ProfNetwork esql, String authorisedUser){
       try{
-         String query = "SELECT * FROM Connection WHERE userId = " + authorisedUser;
-         esql.executeQueryAndPrintResult(query);
+        int connectionLevel=0;
+        boolean canAdd=false;
+        System.out.println("enter ConnectionId of Recipient");
+        String connection=in.readLine();
+        String query= "SELECT COUNT(*) FROM Connection WHERE userId="+authorisedUser+" AND status='Accept";
+        int numC=esql.executeQuery(query);
+        if(numC<5)
+        canAdd=true;
+        else {
+        query="SELECT Count(*) FROM Connection  WHERE userId= "+authorisedUser+" AND status='Accept' AND ConnectionId=Connection";
+        numC=esql.executeQuery(query);
+        while (connectionLevel<4 || numC<=00){
+        connectionLevel+=1;
+        query="SELECT COUNT(*) FROM Connection WHERE (userId= "+query+" AND status='Accept') AND ConnectionId=Connection";
+        numC=esql.executeQuery(query);
+        }
+        if(numC>0&&connectionLevel<4)
+        canAdd=true;
+        }
       }catch(Exception e){
          System.err.println (e.getMessage ());
+         return null;
       }
    }//end
+
    public static void DecideRequests(ProfNetwork esql, String authorisedUser){
       try{
          String query = "SELECT * FROM Connection WHERE userId = " + authorisedUser +
