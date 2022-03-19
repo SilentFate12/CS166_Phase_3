@@ -499,7 +499,7 @@ public class ProfNetwork {
          return null;
       }
    }//end
-   public static String UpdatePassword(ProfNetwork esql){
+   public static String ChangePassword(ProfNetwork esql){
       try{
 	 boolean tryingToLogin = true;
 	 System.out.println("To verify it's you before allowing you to change your password, please log in again: ");
@@ -513,7 +513,7 @@ public class ProfNetwork {
 			 System.out.println("Password successfully updated!");
 			 tryingToLogin = false;
 		} else {
-			bool deciding = true;
+			boolean deciding = true;
 			while(deciding) {
 				System.out.println("User not recognized. Do you want to try logging in again? (1 = Yes, 2 = No): ");
 				switch(readChoice()) {
@@ -560,7 +560,7 @@ public class ProfNetwork {
 		 String userMessage = in.readLine();
 		 Date currDate = new Date();
 		 String sequence = "MessageIDSequence";
-		 int messageID = getCurrSeqVal(sequence); //Needs to be a sequence value, will fix in future.
+		 int messageID = esql.getCurrSeqVal(sequence); //Needs to be a sequence value, will fix in future.
 		 String insertMessageQuery = "INSERT INTO Message VALUES (" + messageID + ", " + authorisedUser +
 			 		     ", " + userID + ", " + userMessage + ", " + currDate + ", 0, Sent)";
 		 esql.executeQuery(insertMessageQuery);
