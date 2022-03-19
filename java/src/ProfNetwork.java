@@ -354,9 +354,13 @@ public class ProfNetwork {
          String password = in.readLine();
          System.out.print("\tEnter user email: ");
          String email = in.readLine();
-
+	 System.out.print("\tEnter user name: ");
+         String name = in.readLine();
+	 System.out.print("\tEnter user date of birth: ");
+         String dob = in.readLine();
 	 //Creating empty contact\block lists for a user
-	 String query = String.format("INSERT INTO USR (userId, password, email, contact_list) VALUES ('%s','%s','%s')", login, password, email);
+	 String query = String.format("INSERT INTO USR (userId, password, email, name, dateofbirth) VALUES ('%s','%s','%s','%s','%s')", 
+				      login, password, email, name, dob);
 
          esql.executeUpdate(query);
          System.out.println ("User successfully created!");
