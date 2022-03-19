@@ -542,7 +542,8 @@ public class ProfNetwork {
 	 //check for valid length under 500 char
 	 String message= in.readLine();
 	 String status="Sent";
-	 String query=String.format("INSERT INTO MESSAGE(msgId,senderId,receiverId,contents,sendTime,deleteStatus,status) VALUES ('%s','%s','%s''%s','%s','%s','%s')",  userNum,senderId,receiverId,message,0,status);
+	 String query=String.format("INSERT INTO MESSAGE(msgId,senderId,receiverId,contents,sendTime,deleteStatus,status)" + 
+				    " VALUES ('%s','%s','%s''%s','%s','%s','%s')",  userNum,senderId,receiverId,message,0,status);
       }catch(Exception e){
          System.err.println (e.getMessage ());
          return null;
@@ -587,8 +588,41 @@ public class ProfNetwork {
    }//end
    public static String DecideRequests(ProfNetwork esql, String authorisedUser){
       try{
-         String query = "SELECT * FROM Connection WHERE userId = " + authorisedUser;
-         int userNum = esql.executeQueryAndPrintResult(query);
+         String query = "SELECT * FROM Connection WHERE userId = " + authorisedUser +
+		 " AND status != Accepted AND status != Declined";
+         int numOfResults = esql.executeQueryAndPrintResult(query);
+	 boolean deciding = true;
+	 while(deciding) {
+		 System.out.println("Select a connection to accept or decline using its connection ID " +
+				    "(If you wish to exit instead, Simply press [Enter]): ";
+		 String connectionID = in.readLine();
+		 if (connectionID != null) {
+			 boolean deciding2 = true;
+			 while(deciding2) {
+				 System.out.println("What do you want to do with the connection? (1 for Accept, 2 for Decline, 3 to exit): ");
+				 switch(readChoice()) {
+					 case 1: String acceptQuery = "UPDATE Connection SET status = Accepted WHERE connectionId = " +
+						 connectionID;
+						 int userNum = esql.executeQuery(acceptQuery);
+						 System.out.println("Connection Accepted!");
+						 deciding2 = false;
+						 break;
+					 case 2: String declineQuery = "UPDATE Connection SET status = Declined WHERE connectionId = " +
+						 connectionID;
+						 int userNum = esql.executeQuery(declineQuery);
+						 System.out.println("Connection Declined.");
+						 deciding2 = false;
+						 break;
+					 case 3: deciding2 = false; break;
+					 default: System.out.println("Unrecognized Input, please input a valid answer.");
+						  break;
+				 }
+			 }
+		 }
+		 else {
+			deciding = false;
+		 }
+	 }
       }catch(Exception e){
          System.err.println (e.getMessage ());
          return null;
