@@ -284,13 +284,13 @@ public class ProfNetwork {
                 System.out.println("9. Log out");
                 switch (readChoice()){
                    case 1: FriendList(esql, authorisedUser); break;
-                   case 2: FriendProfile(esql); break;
-                   case 3: UpdateProfile(esql); break;
+                   case 2: FriendProfile(esql, authorisedUser); break;
+                   case 3: UpdateProfile(esql, authorisedUser); break;
 		   case 4: UpdatePassword(esql); break;
-                   case 5: SendMessage(esql); break;
-		   case 6: ViewMessages(esql); break;
-		   case 7: SendConnectionRequest(esql); break;
-		   case 8: DecideRequests(esql); break;
+                   case 5: SendMessage(esql, authorisedUser); break;
+		   case 6: ViewMessages(esql, authorisedUser); break;
+		   case 7: SendConnectionRequest(esql, authorisedUser); break;
+		   case 8: DecideRequests(esql, authorisedUser); break;
                    case 9: usermenu = false; break;
                    default : System.out.println("Unrecognized choice!"); break;
                 }
@@ -400,7 +400,7 @@ public class ProfNetwork {
       try{
          String query = "SELECT * FROM Connection C WHERE C.userId = " + authorisedUser
 	 + " AND C.status = Accepted";
-         int userNum = esql.executeQueryAndPrintResult(query);
+         esql.executeQueryAndPrintResult(query);
       }catch(Exception e){
          System.err.println (e.getMessage ());
          return null;
@@ -410,9 +410,9 @@ public class ProfNetwork {
       try{
 	 System.out.println("Input the name of the friend you'd like to visit: ");
 	 String friendName = in.readLine();
-         String query = "SELECT * FROM User U2 WHERE U2.userID EXISTS IN(SELECT C.userID From Connections C WHERE C.userID EXISTS IN" + 
-		 "(SELECT U.userID FROM User U WHERE U.name LIKE %" + friendName + "%))";
-         int userNum = esql.executeQueryAndPrintResult(query);
+         String query = "SELECT * FROM User U2 WHERE U2.userID EXISTS IN(SELECT C.userID From Connections C WHERE C.connectionId EXISTS IN" + 
+		 "(SELECT U.userID FROM User U WHERE U.name LIKE %" + friendName + "%) AND C.userId = " + authorisedUser + ")";
+         esql.executeQueryAndPrintResult(query);
       }catch(Exception e){
          System.err.println (e.getMessage ());
          return null;
@@ -435,21 +435,21 @@ public class ProfNetwork {
 		 	 String newEmail = in.readLine();
 		 	 String emailQuery = "UPDATE User SET email = " +
 				 newEmail + " WHERE userId = " + authorisedUser;
-		 	 int userNum = esql.executeQuery(emailQuery);
+		 	 esql.executeQuery(emailQuery);
 		 	 System.out.println("Email updated!");
 		 	 break;
 		 case 2: System.out.println("Enter your new name: ");
 		 	 String newName = in.readLine();
 		 	 String nameQuery = "UPDATE User SET name = " +
 				 newName + " WHERE userId = " + authorisedUser;
-		 	 int userNum = esql.executeQuery(nameQuery);
+		 	 esql.executeQuery(nameQuery);
 		 	 System.out.println("Name updated!");
 		 	 break;
 		 case 3: System.out.println("Enter your new date of birth: ");
 		 	 String newDOB = in.readLine();
 		 	 String DOBQuery = "UPDATE User SET dateofbirth = " +
 				 newDOB + " WHERE userId = " + authorisedUser;
-		 	 int userNum = esql.executeQuery(DOBQuery);
+		 	 esql.executeQuery(DOBQuery);
 		 	 System.out.println("Date of Birth updated!");
 		 	 break;
 		 case 4: System.out.println("Which part of your Work would you like to change?\n" +
@@ -475,7 +475,7 @@ public class ProfNetwork {
 						 " VALUES(" + authorisedUser + ", " + company + ", " +
 						 role + ", " + location + ", " + startDate + ", " +
 						 endDate + ")";
-				 	 int userNum = esql.executeQuery(createWorkExperience);
+				 	 esql.executeQuery(createWorkExperience);
 				 	 System.out.println("Work Experience Created!");
 				 	 break;
 				 case 2: System.out.println("Which previous company are you updating for?: ");
@@ -507,7 +507,7 @@ public class ProfNetwork {
 			 System.out.println("User recognized! Please input your new password: ");
 			 String newPass = in.readLine();
 			 String passQuery = "UPDATE User SET password = " + newPass + "WHERE userId = " + authUser;
-			 int userNum = esql.executeUpdate(passQuery);
+			 esql.executeUpdate(passQuery);
 			 System.out.println("Password successfully updated!");
 			 tryingToLogin = false;
 		} else {
@@ -538,7 +538,7 @@ public class ProfNetwork {
 		 System.out.println("Input name of user you would like to send a message to: ");
 	 	 String userName = in.readLine();
 	 	 String userQuery = "SELECT userId, email, name, dateofbirth FROM User WHERE name LIKE %" + userName + "%";
-	 	 int numOfUsers = esql.executeQueryAndPrintResult(userQuery);
+	 	 esql.executeQueryAndPrintResult(userQuery);
 		 System.out.println("Did you find the user you were looking for? (1 for Yes, 2 for No and Search Again, 3 to Exit): ");
 		 switch(readChoice()) {
 			 case 1: searchingForUser = false;
@@ -561,7 +561,7 @@ public class ProfNetwork {
 		 int messageID = getCurrSeqVal(sequence); //Needs to be a sequence value, will fix in future.
 		 String insertMessageQuery = "INSERT INTO Message VALUES (" + messageID + ", " + authorisedUser +
 			 		     ", " + userID + ", " + userMessage + ", " + currDate + ", 0, Sent)";
-		 int messageNum = esql.executeQuery(insertMessageQuery);
+		 esql.executeQuery(insertMessageQuery);
 		 System.out.println("Message Sent!");
 	 }
          
@@ -577,7 +577,7 @@ public class ProfNetwork {
 	 System.out.println("**********************");
          String query = "SELECT * FROM Message WHERE receiverId = " + authorisedUser +
 		 " AND deletestatus = 0";
-         int userNum = esql.executeQueryAndPrintResult(query);
+         esql.executeQueryAndPrintResult(query);
 	 boolean deciding = true;
 	 while(deciding) {
 		 System.out.println("Do you want to delete any messages? (1 for Yes, 2 for No): ");
@@ -585,7 +585,7 @@ public class ProfNetwork {
 			 case 1: System.out.println("Which message do you want to delete? (Enter full message ID here): ");
 				 String mID = in.readLine();
 				 String messageQuery = "DELETE FROM Message WHERE messageId = " + mID;
-				 int userNum = esql.executeQuery(messageQuery);
+				 esql.executeQuery(messageQuery);
 				 System.out.println("Message successfully deleted!");
 				 deciding = false;
 				 break;
@@ -601,30 +601,8 @@ public class ProfNetwork {
    }//end
    public static String SendConnectionRequest(ProfNetwork esql, String authorisedUser){
       try{
-        int connectionLevel=0;
-        boolean canAdd=false;
-	print System.out.println("enter ConnectionId of Recipient");
-	string connection=readLine.in();
-	string query= "SELECT COUNT(*) FROM Connection WHERE userId="+authorizedUser+" AND status=""Accept"";
-	int numC=executeQuery(query);
-	if(numC<5)
-	canAdd=true;
-	else {
-	string query="SELECT Count(*) FROM Connection  WHERE userId= "+authorizedUser+" AND status=""Accept"" AND ConnectionId=Connection";
-	numC=executeQuery(query)
-	while (connectionLevel<4 || numC<=00){
-	connectionLevel+=1;
-	string query="SELECT COUNT(*) FROM Connection WHERE (userId= "+query+" AND status=""Accept"") AND ConnectionId=Connection";
-	numC=executeQuery(query);
-	}
-
-	if(connection>3)
-	canAdd=false;
-	if(numc>0)
-	canAdd=true;
-	}
-
-         
+         String query = "SELECT * FROM Connection WHERE userId = " + authorisedUser;
+         esql.executeQueryAndPrintResult(query);
       }catch(Exception e){
          System.err.println (e.getMessage ());
          return null;
@@ -634,7 +612,7 @@ public class ProfNetwork {
       try{
          String query = "SELECT * FROM Connection WHERE userId = " + authorisedUser +
 		 " AND status != Accepted AND status != Declined";
-         int numOfResults = esql.executeQueryAndPrintResult(query);
+         esql.executeQueryAndPrintResult(query);
 	 boolean deciding = true;
 	 while(deciding) {
 		 System.out.println("Select a connection to accept or decline using its connection ID " +
@@ -647,13 +625,13 @@ public class ProfNetwork {
 				 switch(readChoice()) {
 					 case 1: String acceptQuery = "UPDATE Connection SET status = Accepted WHERE connectionId = " +
 						 connectionID;
-						 int userNum = esql.executeQuery(acceptQuery);
+						 esql.executeQuery(acceptQuery);
 						 System.out.println("Connection Accepted!");
 						 deciding2 = false;
 						 break;
 					 case 2: String declineQuery = "UPDATE Connection SET status = Declined WHERE connectionId = " +
 						 connectionID;
-						 int userNum = esql.executeQuery(declineQuery);
+						 esql.executeQuery(declineQuery);
 						 System.out.println("Connection Declined.");
 						 deciding2 = false;
 						 break;
