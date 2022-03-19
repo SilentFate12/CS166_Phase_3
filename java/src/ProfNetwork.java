@@ -287,7 +287,7 @@ public class ProfNetwork {
                    case 1: FriendList(esql, authorisedUser); break;
                    case 2: FriendProfile(esql, authorisedUser); break;
                    case 3: UpdateProfile(esql, authorisedUser); break;
-		   case 4: UpdatePassword(esql); break;
+		   case 4: ChangePassword(esql); break;
                    case 5: SendMessage(esql, authorisedUser); break;
 		   case 6: ViewMessages(esql, authorisedUser); break;
 		   case 7: SendConnectionRequest(esql, authorisedUser); break;
