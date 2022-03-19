@@ -22,6 +22,7 @@ import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.List;
+import java.util.Date;
 import java.util.ArrayList;
 
 /**
@@ -531,19 +532,40 @@ public class ProfNetwork {
    }//end
    public static String SendMessage(ProfNetwork esql, String authorisedUser){
       try{
-         String query = "SELECT COUNT(*) FROM Message";
-         int userNum = esql.executeQueryAndPrintResult(query)+1;
-	 System.out.println("Please Enter Message Recipiant");
-	 String reciever=in.readLine();
-	 //check for valid receiver
-	 String query= "SELECT CONVERT(TIME,GETDATE())";
-	 timestamp t=esql.esql.executeQueryAndPrintResult(query);
-	 System.out.println("Please Enter Message(500 character limit)");
-	 //check for valid length under 500 char
-	 String message= in.readLine();
-	 String status="Sent";
-	 String query=String.format("INSERT INTO MESSAGE(msgId,senderId,receiverId,contents,sendTime,deleteStatus,status)" + 
-				    " VALUES ('%s','%s','%s''%s','%s','%s','%s')",  userNum,senderId,receiverId,message,0,status);
+	 boolean searchingForUser = true;
+	 boolean foundRightUser = false;
+	 while(searchingForUser) {
+		 System.out.println("Input name of user you would like to send a message to: ");
+	 	 String userName = in.readLine();
+	 	 String userQuery = "SELECT userId, email, name, dateofbirth FROM User WHERE name LIKE %" + userName + "%";
+	 	 int numOfUsers = esql.executeQueryAndPrintResult(userQuery);
+		 System.out.println("Did you find the user you were looking for? (1 for Yes, 2 for No and Search Again, 3 to Exit): ");
+		 switch(readChoice()) {
+			 case 1: searchingForUser = false;
+				 foundRightUser = true;
+				 break;
+			 case 2: break;
+			 case 3: searchingForUser = false;
+				 break;
+			 default: System.out.println("Invalid input! Please enter a valid answer.");
+				  break;
+		 }
+	 }
+	 if (foundRightUser) {
+		 System.out.println("Please enter the exact userId of the user you want to message: ");
+		 String userID = in.readLine();
+		 System.out.println("Please enter the message you wish to send. Do not press [Enter] until your message is complete: ");
+		 String userMessage = in.readLine();
+		 Date currDate = new Date();
+		 String sequence = "MessageIDSequence";
+		 int messageID = getCurrSeqVal(sequence); //Needs to be a sequence value, will fix in future.
+		 String insertMessageQuery = "INSERT INTO Message VALUES (" + messageID + ", " + authorisedUser +
+			 		     ", " + userID + ", " + userMessage + ", " + currDate + ", 0, Sent)";
+		 int messageNum = esql.executeQuery(insertMessageQuery);
+		 System.out.println("Message Sent!");
+	 }
+         
+		 		
       }catch(Exception e){
          System.err.println (e.getMessage ());
          return null;
@@ -553,7 +575,7 @@ public class ProfNetwork {
       try{
 	 System.out.println("Displaying messages...");
 	 System.out.println("**********************");
-         String query = "SELECT * FROM Message WHERE senderId = " + authorisedUser +
+         String query = "SELECT * FROM Message WHERE receiverId = " + authorisedUser +
 		 " AND deletestatus = 0";
          int userNum = esql.executeQueryAndPrintResult(query);
 	 boolean deciding = true;
