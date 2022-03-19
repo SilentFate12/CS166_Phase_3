@@ -531,8 +531,18 @@ public class ProfNetwork {
    }//end
    public static String SendMessage(ProfNetwork esql, String authorisedUser){
       try{
-         String query = "SELECT * FROM Connection WHERE userId = " + authorisedUser;
-         int userNum = esql.executeQueryAndPrintResult(query);
+         String query = "SELECT COUNT(*) FROM Message";
+         int userNum = esql.executeQueryAndPrintResult(query)+1;
+	 System.out.println("Please Enter Message Recipiant");
+	 String reciever=in.readLine();
+	 //check for valid receiver
+	 String query= "SELECT CONVERT(TIME,GETDATE())";
+	 timestamp t=esql.esql.executeQueryAndPrintResult(query);
+	 System.out.println("Please Enter Message(500 character limit)");
+	 //check for valid length under 500 char
+	 String message= in.readLine();
+	 String status="Sent";
+	 String query=String.format("INSERT INTO MESSAGE(msgId,senderId,receiverId,contents,sendTime,deleteStatus,status) VALUES ('%s','%s','%s''%s','%s','%s','%s')",  userNum,senderId,receiverId,message,0,status);
       }catch(Exception e){
          System.err.println (e.getMessage ());
          return null;
@@ -540,7 +550,7 @@ public class ProfNetwork {
    }//end
    public static String ViewMessages(ProfNetwork esql, String authorisedUser){
       try{
-         String query = "SELECT * FROM Connection WHERE userId = " + authorisedUser;
+         String query = "SELECT m.sendTime,m.contents,m.status FROM Message m WHERE (deleteStatus=0 OR deleteStatus=1 AND senderId= " + authorisedUser") OR (deleteStatus=0 OR deleteStatus=2 AND receiverId="+authorisedUser")";
          int userNum = esql.executeQueryAndPrintResult(query);
       }catch(Exception e){
          System.err.println (e.getMessage ());
