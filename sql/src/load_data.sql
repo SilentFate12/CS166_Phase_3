@@ -1,4 +1,4 @@
-Edward Martens (862256447), Cody Phu (862107077)
+--Edward Martens (862256447), Cody Phu (862107077)
 COPY USR(userId, password, email, name, dateOfBirth)
 FROM 'USR.csv'
 DELIMITER ','
