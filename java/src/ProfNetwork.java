@@ -411,8 +411,8 @@ public class ProfNetwork {
       try{
 	 System.out.println("Input the name of the friend you'd like to visit: ");
 	 String friendName = in.readLine();
-         String query = "SELECT * FROM User U2 WHERE U2.userID EXISTS IN(SELECT C.userID From Connections C WHERE C.connectionId EXISTS IN" + 
-		 "(SELECT U.userID FROM User U WHERE U.name LIKE %" + friendName + "%) AND C.userId = " + authorisedUser + ")";
+         String query = "SELECT * FROM USR U2 WHERE U2.userID EXISTS IN(SELECT C.userID From Connections C WHERE C.connectionId EXISTS IN" + 
+		 "(SELECT U.userID FROM USR U WHERE U.name LIKE %" + friendName + "%) AND C.userId = " + authorisedUser + ")";
          esql.executeQueryAndPrintResult(query);
       }catch(Exception e){
          System.err.println (e.getMessage ());
@@ -433,21 +433,21 @@ public class ProfNetwork {
 	 switch(readChoice()) {
 		 case 1: System.out.println("Enter your new email: ");
 		 	 String newEmail = in.readLine();
-		 	 String emailQuery = "UPDATE User SET email = " +
+		 	 String emailQuery = "UPDATE USR SET email = " +
 				 newEmail + " WHERE userId = " + authorisedUser;
 		 	 esql.executeQuery(emailQuery);
 		 	 System.out.println("Email updated!");
 		 	 break;
 		 case 2: System.out.println("Enter your new name: ");
 		 	 String newName = in.readLine();
-		 	 String nameQuery = "UPDATE User SET name = " +
+		 	 String nameQuery = "UPDATE USR SET name = " +
 				 newName + " WHERE userId = " + authorisedUser;
 		 	 esql.executeQuery(nameQuery);
 		 	 System.out.println("Name updated!");
 		 	 break;
 		 case 3: System.out.println("Enter your new date of birth: ");
 		 	 String newDOB = in.readLine();
-		 	 String DOBQuery = "UPDATE User SET dateofbirth = " +
+		 	 String DOBQuery = "UPDATE USR SET dateofbirth = " +
 				 newDOB + " WHERE userId = " + authorisedUser;
 		 	 esql.executeQuery(DOBQuery);
 		 	 System.out.println("Date of Birth updated!");
@@ -505,7 +505,7 @@ public class ProfNetwork {
 	 	if (authUser != null) {
 			 System.out.println("User recognized! Please input your new password: ");
 			 String newPass = in.readLine();
-			 String passQuery = "UPDATE User SET password = " + newPass + "WHERE userId = " + authUser;
+			 String passQuery = "UPDATE USR SET password = " + newPass + "WHERE userId = " + authUser;
 			 esql.executeUpdate(passQuery);
 			 System.out.println("Password successfully updated!");
 			 tryingToLogin = false;
@@ -535,7 +535,7 @@ public class ProfNetwork {
 	 while(searchingForUser) {
 		 System.out.println("Input name of user you would like to send a message to: ");
 	 	 String userName = in.readLine();
-	 	 String userQuery = "SELECT userId, email, name, dateofbirth FROM User WHERE name LIKE %" + userName + "%";
+	 	 String userQuery = "SELECT userId, email, name, dateofbirth FROM USR WHERE name LIKE %" + userName + "%";
 	 	 esql.executeQueryAndPrintResult(userQuery);
 		 System.out.println("Did you find the user you were looking for? (1 for Yes, 2 for No and Search Again, 3 to Exit): ");
 		 switch(readChoice()) {
@@ -648,7 +648,7 @@ public class ProfNetwork {
       try {
          System.out.println("Enter name of person you want to look for: ");
 	 String userName = in.readLine();
-	 String userQuery = "SELECT * FROM User WHERE name LIKE %" + userName + "%";
+	 String userQuery = "SELECT * FROM USR WHERE name LIKE %" + userName + "%";
 	 esql.executeQueryAndPrintResult(userQuery);
       }catch(Exception e){
          System.err.println (e.getMessage ());
