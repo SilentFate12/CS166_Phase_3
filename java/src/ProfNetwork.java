@@ -617,8 +617,8 @@ public class ProfNetwork {
 		
         	while (connectionLevel<4 || numC<=00){
         		connectionLevel+=1;
-        		query="SELECT ConnectionId FROM Connection WHERE (userId="+ query +”)”;
-			countQuery=” SELECT * FROM Connection WHERE (“+query+”)AND ConnectionId=Connection";”;
+        		query="SELECT ConnectionId FROM Connection WHERE (userId="+ query +")";
+			countQuery=" SELECT * FROM Connection WHERE ("+query+")AND ConnectionId=Connection";
        			numC=esql.executeQuery(countQuery);
         }
         if(numC>0&&connectionLevel<4)
