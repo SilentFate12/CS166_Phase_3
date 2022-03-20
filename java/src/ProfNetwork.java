@@ -421,7 +421,7 @@ public class ProfNetwork {
 		"(SELECT C.connectionID FROM CONNECTION_USR C WHERE C.userId = '" + authorisedUser
 	 	+ "' AND C.status = 'Accept')";
          	esql.executeQueryAndPrintResult(query);
-	 	System.out.println("Input the name of the friend you'd like to visit or type [Exit] to return to main menu: ");
+	 	System.out.println("Input the userId of the friend you'd like to visit or type [Exit] to return to main menu: ");
 	 	String friendName = in.readLine();
 		boolean furtherLooking = false;
 		if (!friendName.toLowerCase().equals("exit")) {
@@ -592,6 +592,21 @@ public class ProfNetwork {
 	 }
          
 		 		
+      }catch(Exception e){
+         System.err.println (e.getMessage ());
+      }
+   }//end
+   public static void SendMessage(ProfNetwork esql, String authorisedUser, String userID){ //overloaded function for friendProfile functionality
+      try{
+	System.out.println("Please enter the message you wish to send. Do not press [Enter] until your message is complete: ");
+	String userMessage = in.readLine();
+	Date currDate = new Date();
+	String sequence = "MessageIDSequence";
+	int messageID = esql.getCurrSeqVal(sequence); //Needs to be a sequence value, will fix in future.	
+	String insertMessageQuery = "INSERT INTO MESSAGE VALUES ('" + messageID + "', '" + authorisedUser +
+			 	    "', '" + userID + "', '" + userMessage + "', '" + currDate + "', 0, 'Sent')";
+	esql.executeUpdate(insertMessageQuery);
+	System.out.println("Message Sent!");
       }catch(Exception e){
          System.err.println (e.getMessage ());
       }
