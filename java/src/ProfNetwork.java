@@ -537,7 +537,7 @@ public class ProfNetwork {
 	 boolean searchingForUser = true;
 	 boolean foundRightUser = false;
 	 while(searchingForUser) {
-		 System.out.println("Input name of user you would like to send a message to: ");
+		 System.out.println("Input name (not userId) of user you would like to send a message to: ");
 	 	 String userName = in.readLine();
 	 	 String userQuery = "SELECT userId, email, name, dateofbirth FROM USR WHERE name LIKE '%" + userName + "%'";
 	 	 esql.executeQueryAndPrintResult(userQuery);
@@ -561,8 +561,8 @@ public class ProfNetwork {
 		 Date currDate = new Date();
 		 String sequence = "MessageIDSequence";
 		 int messageID = esql.getCurrSeqVal(sequence); //Needs to be a sequence value, will fix in future.
-		 String insertMessageQuery = "INSERT INTO Message VALUES (" + messageID + ", " + authorisedUser +
-			 		     ", " + userID + ", " + userMessage + ", " + currDate + ", 0, Sent)";
+		 String insertMessageQuery = "INSERT INTO Message VALUES ('" + messageID + "', '" + authorisedUser +
+			 		     "', '" + userID + "', '" + userMessage + "', '" + currDate + "', 0, Sent)";
 		 esql.executeQuery(insertMessageQuery);
 		 System.out.println("Message Sent!");
 	 }
