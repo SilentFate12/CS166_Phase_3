@@ -643,7 +643,7 @@ public class ProfNetwork {
          String query = "SELECT * FROM MESSAGE M WHERE (M.senderId = '" + authorisedUser +"' AND (M.deleteStatus = 0 OR M.deleteStatus = 2)) OR (M.receiverId = '" + authorisedUser +"' AND (M.deleteStatus = 0 OR M.deleteStatus = 1))" ;
          int numOfMessages = esql.executeQueryAndPrintResult(query);
 	 boolean deciding = true;
-	 if (numOfMessages < 1) {
+	 if (numOfMessages < 0) {
 		 System.out.println("No messages received yet!");
 		 deciding = false;
 	 }
