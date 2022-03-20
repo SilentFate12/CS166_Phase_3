@@ -557,7 +557,7 @@ public class ProfNetwork {
 		 String userMessage = in.readLine();
 		 Date currDate = new Date();
 		 String sequence = "SELECT COUNT(*) FROM MESSAGE M WHERE M.msgId>0";
-		 int messageID = esql.executeQueryAndPrintResult(sequence)+1; //Needs to be a sequence value, will fix in future.
+		 int messageID = esql.executeQuery(sequence); //Needs to be a sequence value, will fix in future.
 		 System.out.println(messageID);
 		 String insertMessageQuery = "INSERT INTO MESSAGE VALUES ('" + messageID + "', '" + authorisedUser +
 			 		     "', '" + userID + "', '" + userMessage + "', '" + currDate + "', 0, 'Sent')";
@@ -636,7 +636,7 @@ if (foundRightUser) {
         	while (connectionLevel<4 || numC<=00){
         		connectionLevel+=1;
         		query="SELECT C.connectionId FROM CONNECTION_USR C WHERE C.userId="+ query ;
-			countQuery="SELECT * FROM CONNECTION_USR WHERE "+query+"AND C.connectionId='"+connection+"'";
+			countQuery="SELECT COUNT(*) FROM CONNECTION_USR WHERE "+query+"AND C.connectionId='"+connection+"'";
        			numC=esql.executeQuery(countQuery);
         }
         if(numC>0&&connectionLevel<4)
