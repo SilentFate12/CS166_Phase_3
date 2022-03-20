@@ -718,7 +718,7 @@ if (foundRightUser) {
       try {
          System.out.println("Enter name of person you want to look for: ");
 	 String userName = in.readLine();
-	 String userQuery = "SELECT * FROM USR WHERE name LIKE '%" + userName + "%'";
+	 String userQuery = "SELECT name, email, dateOfBirth, userId FROM USR WHERE name LIKE '%" + userName + "%'";
 	 esql.executeQueryAndPrintResult(userQuery);
       }catch(Exception e){
          System.err.println (e.getMessage ());
