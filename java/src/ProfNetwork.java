@@ -253,10 +253,10 @@ public class ProfNetwork {
             // These are sample SQL statements
             System.out.println("MAIN MENU");
             System.out.println("---------");
-            System.out.println("1. Create user");
-            System.out.println("2. Log in");
-            System.out.println("3. Change password");
-            System.out.println("4. Search people");
+            System.out.println("1. Create User");
+            System.out.println("2. Log In");
+            System.out.println("3. Change Password");
+            System.out.println("4. Search People");
             System.out.println("5. < EXIT");
             String authorisedUser = null;
             switch (readChoice()){
@@ -556,10 +556,10 @@ public class ProfNetwork {
 		 System.out.println("Please enter the message you wish to send. Do not press [Enter] until your message is complete: ");
 		 String userMessage = in.readLine();
 		 Date currDate = new Date();
-		 String sequence = "SELECT COUNT(*) FROM MESSAGE M WHERE M.msgId>0";
+		 String sequence = "SELECT COUNT(*)+1 FROM MESSAGE M WHERE M.msgId>0";
 		 int messageID = esql.executeQuery(sequence); //Needs to be a sequence value, will fix in future.
-		 System.out.println(messageID);
-		 String insertMessageQuery = "INSERT INTO MESSAGE VALUES ('" + messageID + "', '" + authorisedUser +
+		
+		 String insertMessageQuery = "INSERT INTO MESSAGE VALUES ('" + sequence + "', '" + authorisedUser +
 			 		     "', '" + userID + "', '" + userMessage + "', '" + currDate + "', 0, 'Sent')";
 		 esql.executeUpdate(insertMessageQuery);
 		 System.out.println("Message Sent!");
