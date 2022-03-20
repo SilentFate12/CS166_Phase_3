@@ -447,7 +447,7 @@ public class ProfNetwork {
 			boolean newFriendNeeded = false;
 			switch(readChoice()) {
 				case 1: SendMessage(esql, authorisedUser, friendName); break;
-				case 2: if (numOfFriends <= 5 && connectionDepth < 3) {
+				case 2: if (numOfFriends <= 5 || connectionDepth <=4) {
 					   SendConnectionRequest(esql, authorisedUser, friendName);
 					}
 					else {
