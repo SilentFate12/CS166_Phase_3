@@ -24,5 +24,5 @@ FROM 'Edu_Dep.csv'
 DELIMITER ','
 CSV HEADER;
 
-CREATE SEQUENCE MessageIDSequence START 1 OWNED BY MESSAGE.msgID;
+
 SELECT setval('MessageIDSequence',max(msgId)) FROM MESSAGE
