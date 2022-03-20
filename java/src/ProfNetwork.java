@@ -559,8 +559,8 @@ public class ProfNetwork {
 		 System.out.println("Please enter the message you wish to send. Do not press [Enter] until your message is complete: ");
 		 String userMessage = in.readLine();
 		 Date currDate = new Date();
-		 String sequence = "MessageIDSequence";
-		 int messageID = esql.getCurrSeqVal(sequence); //Needs to be a sequence value, will fix in future.
+		 String sequence = "SELECT * FROM Message";
+		 int messageID = esql.executeQuery(sequence)+1; //Needs to be a sequence value, will fix in future.
 		 String insertMessageQuery = "INSERT INTO Message VALUES ('" + messageID + "', '" + authorisedUser +
 			 		     "', '" + userID + "', '" + userMessage + "', '" + currDate + "', 0, Sent)";
 		 esql.executeQuery(insertMessageQuery);
