@@ -572,6 +572,7 @@ public class ProfNetwork {
    }//end
   public static void ViewMessages(ProfNetwork esql, String authorisedUser){
       try{
+	 
 	 System.out.println("Displaying messages...");
 	 System.out.println("**********************");
          String query = "SELECT * FROM Message M WHERE M.receiverId = '" + authorisedUser +"' AND (M.deleteStatus = 0 OR M.deleteStatus = 2)" ;
@@ -598,10 +599,30 @@ public class ProfNetwork {
    }//end
       public static void SendConnectionRequest(ProfNetwork esql, String authorisedUser){
             try{
+		     boolean searchingForUser = true;
+	 boolean foundRightUser = false;
+while(searchingForUser) {
+		 System.out.println("Input name (not userId) of user you would like to send a message to: ");
+	 	 String userName = in.readLine();
+	 	 String userQuery = "SELECT userId, email, name, dateofbirth FROM USR WHERE name LIKE '%" + userName + "%'";
+	 	 esql.executeQueryAndPrintResult(userQuery);
+		 System.out.println("Did you find the user you were looking for? (1 for Yes, 2 for No and Search Again, 3 to Exit): ");
+		 switch(readChoice()) {
+			 case 1: searchingForUser = false;
+				 foundRightUser = true;
+				 break;
+			 case 2: break;
+			 case 3: searchingForUser = false;
+				 break;
+			 default: System.out.println("Invalid input! Please enter a valid answer.");
+				  break;
+		 }
+	 }
+if (foundRightUser) {
         int connectionLevel=0;
         boolean canAdd=false;
         String countQuery;
-        System.out.println("Enter ConnectionId of Recipient");
+        System.out.println("Please enter the exact userId of the user you want to message: ");
         String connection=in.readLine();
         String query= "SELECT * FROM CONNECTION_USR WHERE userId='"+authorisedUser+"' AND status='Accept'";
         int numC=esql.executeQuery(query);
@@ -626,6 +647,7 @@ public class ProfNetwork {
 		esql.executeUpdate(query);
 		System.out.println ("Connection requested successfully created!");
 	}
+  }
       }catch(Exception e){
          System.err.println (e.getMessage ());
       }
