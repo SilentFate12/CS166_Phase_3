@@ -675,9 +675,13 @@ if (foundRightUser) {
    public static void DecideRequests(ProfNetwork esql, String authorisedUser){
       try{
          String query = "SELECT * FROM CONNECTION_USR C WHERE C.connectionId ='"+authorisedUser +"' AND C.status != 'Accept' AND C.status != 'Reject'";
-         esql.executeQueryAndPrintResult(query);
+         int numOfUnDecided = esql.executeQueryAndPrintResult(query);
 	 boolean deciding = true;
 	 boolean deciding2 = false;
+	 if (numOfUnDecided < 1) {
+		 System.out.println("No connection requests yet...");
+		 deciding = false;
+	 }
 	 while(deciding) {
 		 System.out.println("Select a connection to accept or decline using its connection ID " +
 				    "(If you wish to exit instead, Please Type [Exit]): ");
@@ -690,6 +694,7 @@ if (foundRightUser) {
 				 switch(readChoice()) {
 					 case 1: String acceptQuery = "UPDATE CONNECTION_USR SET status = 'Accept' WHERE connectionId = '" + connectionID + 
 						 "' AND userId = '" + authorisedUser + "'";
+						 esql.executeUpdate(acceptQuery);
 						 System.out.println("Connection Accepted!");
 						 deciding2 = false;
 						 break;
