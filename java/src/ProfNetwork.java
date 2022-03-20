@@ -576,8 +576,8 @@ public class ProfNetwork {
       try{
 	 System.out.println("Displaying messages...");
 	 System.out.println("**********************");
-         String query = "SELECT * FROM Message WHERE receiverId = " + authorisedUser +
-		 " AND deletestatus = 0";
+         String query = "SELECT * FROM Message M WHERE M.receiverId = '" + authorisedUser +
+		 "' AND (M.deleteStatus = 0 M.deleteStatus = 2)" ;
          esql.executeQueryAndPrintResult(query);
 	 boolean deciding = true;
 	 while(deciding) {
@@ -585,7 +585,7 @@ public class ProfNetwork {
 		 switch(readChoice()) {
 			 case 1: System.out.println("Which message do you want to delete? (Enter full message ID here): ");
 				 String mID = in.readLine();
-				 String messageQuery = "DELETE FROM Message WHERE messageId = " + mID;
+				 String messageQuery = "UPDATE Message N SET N.deleteStatus=1 WHERE N.messageId = '" + mID"'";
 				 esql.executeQuery(messageQuery);
 				 System.out.println("Message successfully deleted!");
 				 deciding = false;
