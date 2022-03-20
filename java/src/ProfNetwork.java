@@ -424,7 +424,7 @@ public class ProfNetwork {
 	 System.out.println("Type [enter] to continue or [exit] to return to main menu: ");
 	 friendName = in.readLine(); 
 		 if(friendName!="exit"){
-			String query = "SELECT * FROM CONNECTION_USR C WHERE (C.userId = '" + authorisedUser
+			query = "SELECT * FROM CONNECTION_USR C WHERE (C.userId = '" + authorisedUser
 	 		+ "'OR C.connectionId='"+authorisedUser+"') AND C.status = 'Accept'"; 
 			  System.out.println("Input the name of the friend's friend you'd like to visit: ");
 		 }
