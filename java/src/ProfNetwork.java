@@ -636,24 +636,22 @@ public class ProfNetwork {
          String query = "SELECT * FROM CONNECTION_USR C WHERE C.userId ='"+authorisedUser +"' AND C.status != 'Accept' AND C.status != 'Decline'";
          esql.executeQueryAndPrintResult(query);
 	 boolean deciding = true;
+	 boolean deciding2 = false;
 	 while(deciding) {
 		 System.out.println("Select a connection to accept or decline using its connection ID " +
 				    "(If you wish to exit instead, Please Type [exit] {in all lower case}): ");
 		 String connectionID =in.readLine();
-		 connectionID.trim();
-		 if (connectionID !="exit") {
-			 boolean deciding2 = true;
-			 while(deciding2) {
+		 if(connectionID!="exit") {
+			 deciding2 = true;
+			 while(deciding2){
 				 System.out.println("What do you want to do with the connection? (1 for Accept, 2 for Decline, 3 to exit): ");
 				 switch(readChoice()) {
-					 case 1: String acceptQuery = "UPDATE CONNECTION_USR C SET C.status = 'Accept' WHERE C.connectionId = '" +
-						 connectionID+"'";
+					 case 1: String acceptQuery = "UPDATE CONNECTION_USR C SET C.status = 'Accept' WHERE C.connectionId = '" +connectionID+"'";
 						 esql.executeQuery(acceptQuery);
 						 System.out.println("Connection Accepted!");
 						 deciding2 = false;
 						 break;
-					 case 2: String declineQuery = "UPDATE CONNECTION_USR C SET C.status = 'Decline' WHERE C.connectionId = '" +
-						 connectionID+"'";
+					 case 2: String declineQuery = "UPDATE CONNECTION_USR C SET C.status = 'Decline' WHERE C.connectionId = '" +connectionID+"'";
 						 esql.executeQuery(declineQuery);
 						 System.out.println("Connection Declined.");
 						 deciding2 = false;
@@ -664,8 +662,9 @@ public class ProfNetwork {
 				 }
 			 }
 		 }
-		 else {
+		 else{
 			deciding = false;
+			deciding2 = true;
 		 }
 	 }
       }catch(Exception e){
