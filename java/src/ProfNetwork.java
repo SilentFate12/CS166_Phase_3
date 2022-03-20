@@ -427,6 +427,9 @@ public class ProfNetwork {
 		if (!friendName.toLowerCase().equals("exit")) {
 			furtherLooking = true;
 		}
+		else {
+			viewingFriends = false;
+		}
 		while(furtherLooking){
 			if (!friendName.equals(authorisedUser)) {
 				connectionDepth++;
