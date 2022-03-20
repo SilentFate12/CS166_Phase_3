@@ -424,7 +424,7 @@ public class ProfNetwork {
 	 	System.out.println("Input the name of the friend you'd like to visit or type [Exit] to return to main menu: ");
 	 	String friendName = in.readLine();
 		boolean furtherLooking = false;
-		if (!friendName.toLowerCase.equals("exit")) {
+		if (!friendName.toLowerCase().equals("exit")) {
 			furtherLooking = true;
 		}
 		while(furtherLooking){
