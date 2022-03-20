@@ -23,3 +23,6 @@ COPY EDUCATIONAL_DETAILS(userId, instituitionName, major, degree, startdate, end
 FROM 'Edu_Dep.csv'
 DELIMITER ','
 CSV HEADER;
+
+CREATE SEQUENCE MessageIDSequence START 0;
+SELECT nextval ('MessageIDSequence') FROM MESSAGE
