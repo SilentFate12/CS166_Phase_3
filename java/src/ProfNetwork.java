@@ -708,6 +708,10 @@ if (foundRightUser) {
 					 default: System.out.println("Unrecognized Input, please input a valid answer.");
 						  break;
 				 }
+				 System.out.println("Connection Requests Left: ");
+				 String connections = "SELECT * FROM CONNECTION_USR C WHERE C.connectionId ='"+authorisedUser +
+							 "' AND C.status != 'Accept' AND C.status != 'Reject'";
+				 esql.executeQueryAndPrintResult(connections);
 			 }
 		 }
 		 else{
