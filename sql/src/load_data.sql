@@ -24,5 +24,5 @@ FROM 'Edu_Dep.csv'
 DELIMITER ','
 CSV HEADER;
 
-CREATE SEQUENCE MessageIDSequence START 1;
-SELECT currval ('MessageIDSequence') FROM MESSAGE
+CREATE SEQUENCE MessageIDSequence START 1 OWNED BY MESSAGE.msgID;
+SELECT currval('MessageIDSequence'),nextval('MessageIDSequence')+1 FROM MESSAGE
