@@ -560,7 +560,7 @@ public class ProfNetwork {
 		 String userMessage = in.readLine();
 		 Date currDate = new Date();
 		 String sequence = "SELECT COUNT(*) FROM Message M WHERE M.msgId>0";
-		 int messageID = esql.executeQuery(sequence)+1; //Needs to be a sequence value, will fix in future.
+		 int messageID = esql.executeQueryAndPrintResult(sequence)+1; //Needs to be a sequence value, will fix in future.
 		 System.out.println(messageID);
 		 String insertMessageQuery = "INSERT INTO Message VALUES ('" + messageID + "', '" + authorisedUser +
 			 		     "', '" + userID + "', '" + userMessage + "', '" + currDate + "', 0, 'Sent')";
