@@ -404,7 +404,7 @@ public class ProfNetwork {
  */
    public static void FriendList(ProfNetwork esql, String authorisedUser){
       try{
-         String query = "SELECT * FROM Connection C WHERE C.userId = " + authorisedUser
+         String query = "SELECT * FROM CONNECTION_USR C WHERE C.userId = " + authorisedUser
 	 + " AND C.status = Accepted";
          esql.executeQueryAndPrintResult(query);
       }catch(Exception e){
@@ -415,7 +415,7 @@ public class ProfNetwork {
       try{
 	 System.out.println("Input the name of the friend you'd like to visit: ");
 	 String friendName = in.readLine();
-         String query = "SELECT * FROM USR U2 WHERE U2.userID EXISTS IN(SELECT C.userID From Connections C WHERE C.connectionId EXISTS IN" + 
+         String query = "SELECT * FROM USR U2 WHERE U2.userID EXISTS IN(SELECT C.userID From CONNECTION_USR C WHERE C.connectionId EXISTS IN" + 
 		 "(SELECT U.userID FROM USR U WHERE U.name LIKE '%" + friendName + "%') AND C.userId = " + authorisedUser + ")";
          esql.executeQueryAndPrintResult(query);
       }catch(Exception e){
@@ -606,19 +606,19 @@ public class ProfNetwork {
         String countQuery;
         System.out.println("enter ConnectionId of Recipient");
         String connection=in.readLine();
-        String query= "SELECT * FROM Connection WHERE userId="+authorisedUser+" AND status='Accept'";
+        String query= "SELECT * FROM CONNECTION_USR WHERE userId="+authorisedUser+" AND status='Accept'";
         int numC=esql.executeQuery(query);
         if(numC<5)
         	canAdd=true;
         else {
-        	query="SELECT * FROM Connection  WHERE userId= "+authorisedUser+" AND status='Accept'";
-        	countQuery="SELECT * FROM Connection  WHERE userId= "+authorisedUser+" AND status='Accept' AND ConnectionId=Connection";
+        	query="SELECT * FROM CONNECTION_USR  WHERE userId= "+authorisedUser+" AND status='Accept'";
+        	countQuery="SELECT * FROM CONNECTION_USR  WHERE userId= "+authorisedUser+" AND status='Accept' AND ConnectionId=Connection";
         	numC=esql.executeQuery(query);
 		
         	while (connectionLevel<4 || numC<=00){
         		connectionLevel+=1;
-        		query="SELECT ConnectionId FROM Connection WHERE userId="+ query ;
-			countQuery="SELECT * FROM Connection WHERE "+query+"AND ConnectionId=Connection";
+        		query="SELECT ConnectionId FROM CONNECTION_USR WHERE userId="+ query ;
+			countQuery="SELECT * FROM CONNECTION_USR WHERE "+query+"AND ConnectionId=Connection";
        			numC=esql.executeQuery(countQuery);
         }
         if(numC>0&&connectionLevel<4)
@@ -633,7 +633,7 @@ public class ProfNetwork {
 
    public static void DecideRequests(ProfNetwork esql, String authorisedUser){
       try{
-         String query = "SELECT * FROM Connection WHERE userId = " + authorisedUser +
+         String query = "SELECT * FROM CONNECTION_USR WHERE userId = " + authorisedUser +
 		 " AND status != Accepted AND status != Declined";
          esql.executeQueryAndPrintResult(query);
 	 boolean deciding = true;
@@ -646,13 +646,13 @@ public class ProfNetwork {
 			 while(deciding2) {
 				 System.out.println("What do you want to do with the connection? (1 for Accept, 2 for Decline, 3 to exit): ");
 				 switch(readChoice()) {
-					 case 1: String acceptQuery = "UPDATE Connection SET status = Accepted WHERE connectionId = " +
+					 case 1: String acceptQuery = "UPDATE CONNECTION_USR SET status = Accepted WHERE connectionId = " +
 						 connectionID;
 						 esql.executeQuery(acceptQuery);
 						 System.out.println("Connection Accepted!");
 						 deciding2 = false;
 						 break;
-					 case 2: String declineQuery = "UPDATE Connection SET status = Declined WHERE connectionId = " +
+					 case 2: String declineQuery = "UPDATE CONNECTION_USR SET status = Declined WHERE connectionId = " +
 						 connectionID;
 						 esql.executeQuery(declineQuery);
 						 System.out.println("Connection Declined.");
