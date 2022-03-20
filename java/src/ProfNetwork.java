@@ -416,7 +416,7 @@ public class ProfNetwork {
 	 System.out.println("Input the name of the friend you'd like to visit: ");
 	 String friendName = in.readLine();
          String query = "SELECT * FROM USR U2 WHERE U2.userID EXISTS IN(SELECT C.userID From Connections C WHERE C.connectionId EXISTS IN" + 
-		 "(SELECT U.userID FROM USR U WHERE U.name LIKE %" + friendName + "%) AND C.userId = " + authorisedUser + ")";
+		 "(SELECT U.userID FROM USR U WHERE U.name LIKE '%" + friendName + "%') AND C.userId = " + authorisedUser + ")";
          esql.executeQueryAndPrintResult(query);
       }catch(Exception e){
          System.err.println (e.getMessage ());
@@ -539,7 +539,7 @@ public class ProfNetwork {
 	 while(searchingForUser) {
 		 System.out.println("Input name of user you would like to send a message to: ");
 	 	 String userName = in.readLine();
-	 	 String userQuery = "SELECT userId, email, name, dateofbirth FROM USR WHERE name LIKE %" + userName + "%";
+	 	 String userQuery = "SELECT userId, email, name, dateofbirth FROM USR WHERE name LIKE '%" + userName + "%'";
 	 	 esql.executeQueryAndPrintResult(userQuery);
 		 System.out.println("Did you find the user you were looking for? (1 for Yes, 2 for No and Search Again, 3 to Exit): ");
 		 switch(readChoice()) {
@@ -600,31 +600,37 @@ public class ProfNetwork {
       }
    }//end
       public static void SendConnectionRequest(ProfNetwork esql, String authorisedUser){
-      try{
+            try{
         int connectionLevel=0;
         boolean canAdd=false;
+        String countQuery;
         System.out.println("enter ConnectionId of Recipient");
         String connection=in.readLine();
-        String query= "SELECT COUNT(*) FROM Connection WHERE userId="+authorisedUser+" AND status='Accept";
+        String query= "SELECT * FROM Connection WHERE userId="+authorisedUser+" AND status='Accept";
         int numC=esql.executeQuery(query);
         if(numC<5)
-        canAdd=true;
+        	canAdd=true;
         else {
-        query="SELECT Count(*) FROM Connection  WHERE userId= "+authorisedUser+" AND status='Accept' AND ConnectionId=Connection";
-        numC=esql.executeQuery(query);
-        while (connectionLevel<4 || numC<=00){
-        connectionLevel+=1;
-        query="SELECT COUNT(*) FROM Connection WHERE (userId= "+query+" AND status='Accept') AND ConnectionId=Connection";
-        numC=esql.executeQuery(query);
+        	query="SELECT * FROM Connection  WHERE (userId= "+authorisedUser+" AND status='Accept')”;
+        	countQuery="SELECT * FROM Connection  WHERE (userId= "+authorisedUser+" AND status='Accept') AND ConnectionId=Connection”;
+        	numC=esql.executeQuery(query);
+		
+        	while (connectionLevel<4 || numC<=00){
+        		connectionLevel+=1;
+        		query="SELECT ConnectionId FROM Connection WHERE (userId="+ query +”)”;
+			countQuery=” SELECT * FROM Connection WHERE (“+query+”)AND ConnectionId=Connection";”;
+       			numC=esql.executeQuery(countQuery);
         }
         if(numC>0&&connectionLevel<4)
-        canAdd=true;
+        	canAdd=true;
         }
+
       }catch(Exception e){
          System.err.println (e.getMessage ());
-
+         return null;
       }
    }//end
+
 
    public static void DecideRequests(ProfNetwork esql, String authorisedUser){
       try{
