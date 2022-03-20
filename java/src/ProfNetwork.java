@@ -562,7 +562,7 @@ public class ProfNetwork {
 		 String sequence = "SELECT * FROM Message";
 		 int messageID = esql.executeQuery(sequence)+1; //Needs to be a sequence value, will fix in future.
 		 String insertMessageQuery = "INSERT INTO Message VALUES ('" + messageID + "', '" + authorisedUser +
-			 		     "', '" + userID + "', '" + userMessage + "', '" + currDate + "', 0, Sent)";
+			 		     "', '" + userID + "', '" + userMessage + "', '" + currDate + "', 0, 'Sent')";
 		 esql.executeQuery(insertMessageQuery);
 		 System.out.println("Message Sent!");
 	 }
