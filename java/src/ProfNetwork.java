@@ -576,8 +576,7 @@ public class ProfNetwork {
       try{
 	 System.out.println("Displaying messages...");
 	 System.out.println("**********************");
-         String query = "SELECT * FROM Message M WHERE M.receiverId = '" + authorisedUser +
-		 "' AND (M.deleteStatus = 0 M.deleteStatus = 2)" ;
+         String query = "SELECT * FROM Message M WHERE M.receiverId = '" + authorisedUser +"' AND (M.deleteStatus = 0 OR M.deleteStatus = 2)" ;
          esql.executeQueryAndPrintResult(query);
 	 boolean deciding = true;
 	 while(deciding) {
