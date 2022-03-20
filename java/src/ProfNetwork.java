@@ -438,19 +438,19 @@ public class ProfNetwork {
 		 case 1: System.out.println("Enter your new email: ");
 		 	 String newEmail = in.readLine();
 		 	 String emailQuery = "UPDATE USR SET email = '" +newEmail + "' WHERE userId = '" + authorisedUser+"'";
-		 	 esql.executeQuery(emailQuery);
+		 	 esql.executeUpdate(emailQuery);
 		 	 System.out.println("Email updated!");
 		 	 break;
 		 case 2: System.out.println("Enter your new name: ");
 		 	 String newName = in.readLine();
 		 	 String nameQuery = "UPDATE USR SET name = '" + newName + "' WHERE userId = '" + authorisedUser+"'";
-		 	 esql.executeQuery(nameQuery);
+		 	 esql.executeUpdate(nameQuery);
 		 	 System.out.println("Name updated!");
 		 	 break;
 		 case 3: System.out.println("Enter your new date of birth: ");
 		 	 String newDOB = in.readLine();
 		 	 String DOBQuery = "UPDATE USR SET dateofbirth = '" + newDOB + "' WHERE userId = '" + authorisedUser+"'";
-		 	 esql.executeQuery(DOBQuery);
+		 	 esql.executeUpdate(DOBQuery);
 		 	 System.out.println("Date of Birth updated!");
 		 	 break;
 		 case 4: System.out.println("Which part of your Work would you like to change?\n" +
@@ -476,7 +476,7 @@ public class ProfNetwork {
 						 " VALUES('" + authorisedUser + "',' " + company + "', '" +
 						 role + "', '" + location + "', '" + startDate + "', '" +
 						 endDate + "')";
-				 	 esql.executeQuery(createWorkExperience);
+				 	 esql.executeUpdate(createWorkExperience);
 				 	 System.out.println("Work Experience Created!");
 				 	 break;
 				 case 2: System.out.println("Which previous company are you updating for?: ");
