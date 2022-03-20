@@ -377,7 +377,7 @@ public class ProfNetwork {
       try{
          System.out.print("\tEnter user login: ");
          String login = in.readLine();
-	      System.out.print("\t"login);
+	      System.out.print("\t"+login);
          System.out.print("\tEnter user password: ");
          String password = in.readLine();
 
