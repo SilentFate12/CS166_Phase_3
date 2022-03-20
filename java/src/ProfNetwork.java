@@ -664,7 +664,7 @@ public class ProfNetwork {
 		 }
 		 else{
 			deciding = false;
-			deciding2 = true;
+			deciding2 = false;
 		 }
 	 }
       }catch(Exception e){
