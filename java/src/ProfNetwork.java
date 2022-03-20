@@ -625,7 +625,7 @@ public class ProfNetwork {
         	canAdd=true;
         }
 	if(canAdd){
-		query="INSERT INTO CONNECTION_USR(userId,connectionId, status) VALUES('"authorisedUser+"','"+connection+"'Request'";
+		query="INSERT INTO CONNECTION_USR(userId,connectionId, status) VALUES('"authorisedUser+"','"+connection+"','Request')";
 		esql.executeUpdate(query);
 		System.out.println ("Connection requested successfully created!");
 	}
