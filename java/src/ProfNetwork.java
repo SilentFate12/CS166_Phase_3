@@ -555,11 +555,19 @@ public class ProfNetwork {
 				 	 String startDate = in.readLine();
 				 	 System.out.println("Please input your ending date. If this is your current school, enter [Current]: ");
 				 	 String endDate = in.readLine();
-				 	 String createWorkExperience = "INSERT INTO EDUCATIONAL_DETAILS(" +
+					 String createWorkExperience = "INSERT INTO EDUCATIONAL_DETAILS(" +
 						 "userId, instituitionName, major, degree, startdate, enddate)" +
 						 " VALUES('" + authorisedUser + "',' " + schoolName + "', '" +
 						 major + "', '" + degree + "', '" + startDate + "', '" +
 						 endDate + "')";
+					 if (endDate.toLowerCase().equals("current")) {
+						Date currDate = new Date();
+						createWorkExperience = "INSERT INTO EDUCATIONAL_DETAILS(" +
+						 "userId, instituitionName, major, degree, startdate, enddate)" +
+						 " VALUES('" + authorisedUser + "',' " + schoolName + "', '" +
+						 major + "', '" + degree + "', '" + startDate + "', '" +
+						 currDate + "')";
+					 }
 				 	 esql.executeUpdate(createWorkExperience);
 				 	 System.out.println("School History Created!");
 				 	 break;
