@@ -414,21 +414,35 @@ public class ProfNetwork {
    } 
    public static void FriendProfile(ProfNetwork esql, String authorisedUser){
       try{
-	 String query = "SELECT * FROM CONNECTION_USR C WHERE (C.userId = '" + authorisedUser
-	 + "'OR C.connectionId='"+authorisedUser+"') AND C.status = 'Accept'";
-         esql.executeQueryAndPrintResult(query);
-	 System.out.println("Input the name of the friend you'd like to visit or type [exit] to return to main menu: ");
-	 String friendName = in.readLine();
-	 while(friendName!="exit"){
-         query = "SELECT U.userId,U.email,U.name, E.degree, E.major, E.instituitionName FROM USR U,EDUCATIONAL_DETAILS E WHERE U.userId='"+friendName+"'AND E.userId='"+friendName+"'";
-         esql.executeQueryAndPrintResult(query);
-	 System.out.println("Type [enter] to continue or [exit] to return to main menu: ");
-	 friendName = in.readLine(); 
-		 if(friendName!="exit"){
-			query = "SELECT * FROM CONNECTION_USR C WHERE (C.userId = '" + authorisedUser
-	 		+ "'OR C.connectionId='"+authorisedUser+"') AND C.status = 'Accept'"; 
-			  System.out.println("Input the name of the friend's friend you'd like to visit: ");
-		 }
+	 boolean viewingFriends = true;
+	 int connectionDepth = 0;
+	 while(viewingFriends) {
+		String query = "SELECT U.name, U.userId, U.email, U.dateOfBirth FROM USR U WHERE U.userId IN " + 
+		"(SELECT C.connectionID FROM CONNECTION_USR C WHERE C.userId = '" + authorisedUser
+	 	+ "' AND C.status = 'Accept')";
+         	esql.executeQueryAndPrintResult(query);
+	 	System.out.println("Input the name of the friend you'd like to visit or type [Exit] to return to main menu: ");
+	 	String friendName = in.readLine();
+		boolean furtherLooking = false;
+		if (!friendName.toLowerCase.equals("exit")) {
+			furtherLooking = true;
+		}
+		while(furtherLooking){
+			connectionDepth++;
+			String viewFriendQuery = "SELECT U.userId,U.email,U.name, E.degree, E.major, E.instituitionName FROM USR U,EDUCATIONAL_DETAILS E WHERE " + 
+			"U.userId='"+friendName+"'AND E.userId='"+friendName+"'";
+			esql.executeQueryAndPrintResult(viewFriendQuery);
+			System.out.println("What do you want to do? (1 to Send Message, 2 to Send Connection Request, 3 to Find Further Users, 4 to Exit): ");
+			switch(readChoice()) {
+				case 1: break;
+				case 2: break;
+				case 3: break;
+				case 4: furtherLooking = false;
+					viewingFriends = false;
+					break;
+			}
+		}
+		
 	 }
       }catch(Exception e){
          System.err.println (e.getMessage ());
