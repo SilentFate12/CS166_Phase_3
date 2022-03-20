@@ -278,7 +278,7 @@ public class ProfNetwork {
 		System.out.println("4. Change Password");
                 System.out.println("5. Write a new message");
 		System.out.println("6. View current messages");
-                System.out.println("7. Send Friend Request");
+                System.out.println("7. Send Connection Request");
 		System.out.println("8. Accept/Reject connection requests");
 		System.out.println("9. Search People");
                 System.out.println(".........................");
@@ -604,7 +604,7 @@ public class ProfNetwork {
         int connectionLevel=0;
         boolean canAdd=false;
         String countQuery;
-        System.out.println("enter ConnectionId of Recipient");
+        System.out.println("Enter ConnectionId of Recipient");
         String connection=in.readLine();
         String query= "SELECT * FROM CONNECTION_USR WHERE userId='"+authorisedUser+"' AND status='Accept'";
         int numC=esql.executeQuery(query);
@@ -624,7 +624,11 @@ public class ProfNetwork {
         if(numC>0&&connectionLevel<4)
         	canAdd=true;
         }
-
+	if(canAdd){
+		query="INSERT INTO CONNECTION_USR(userId,connectionId, status) VALUES('"authorisedUser+"','"+connection+"'Request'";
+		esql.executeUpdate(query);
+		System.out.println ("Connection requested successfully created!");
+	}
       }catch(Exception e){
          System.err.println (e.getMessage ());
       }
