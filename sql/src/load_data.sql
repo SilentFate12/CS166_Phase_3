@@ -24,5 +24,5 @@ FROM 'Edu_Dep.csv'
 DELIMITER ','
 CSV HEADER;
 
-CREATE SEQUENCE MessageIDSequence START 0;
+CREATE SEQUENCE MessageIDSequence START 1;
 SELECT nextval ('MessageIDSequence') FROM MESSAGE
