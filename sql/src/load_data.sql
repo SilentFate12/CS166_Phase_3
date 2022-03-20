@@ -25,4 +25,4 @@ DELIMITER ','
 CSV HEADER;
 
 CREATE SEQUENCE MessageIDSequence START 1;
-SELECT nextval ('MessageIDSequence') FROM MESSAGE
+SELECT currval ('MessageIDSequence') FROM MESSAGE
