@@ -471,7 +471,7 @@ public class ProfNetwork {
 				 	 System.out.println("If you already left this job, please enter your ending date." +
 							     " Otherwise just press [ENTER]: ");
 				 	 String endDate = in.readLine();
-				 	 String createWorkExperience = "INSERT INTO Work_Experience(" +
+				 	 String createWorkExperience = "INSERT INTO WORK_EXPR(" +
 						 "userId, company, role, location, startdate, enddate)" +
 						 " VALUES('" + authorisedUser + "',' " + company + "', '" +
 						 role + "', '" + location + "', '" + startDate + "', '" +
@@ -556,10 +556,10 @@ public class ProfNetwork {
 		 System.out.println("Please enter the message you wish to send. Do not press [Enter] until your message is complete: ");
 		 String userMessage = in.readLine();
 		 Date currDate = new Date();
-		 String sequence = "SELECT COUNT(*) FROM Message M WHERE M.msgId>0";
+		 String sequence = "SELECT COUNT(*) FROM MESSAGE M WHERE M.msgId>0";
 		 int messageID = esql.executeQueryAndPrintResult(sequence)+1; //Needs to be a sequence value, will fix in future.
 		 System.out.println(messageID);
-		 String insertMessageQuery = "INSERT INTO Message VALUES ('" + messageID + "', '" + authorisedUser +
+		 String insertMessageQuery = "INSERT INTO MESSAGE VALUES ('" + messageID + "', '" + authorisedUser +
 			 		     "', '" + userID + "', '" + userMessage + "', '" + currDate + "', 0, 'Sent')";
 		 esql.executeQuery(insertMessageQuery);
 		 System.out.println("Message Sent!");
