@@ -552,7 +552,7 @@ public class ProfNetwork {
 				 	 System.out.println("Please input your degree (N/A if High School or Lower): ");
 				 	 String degree = in.readLine();
 				 	 System.out.println("Please input your starting date: ");
-				 	 String startingDate = in.readLine();
+				 	 String startDate = in.readLine();
 				 	 System.out.println("Please input your ending date. If this is your current school, enter [Current]: ");
 				 	 String endDate = in.readLine();
 				 	 String createWorkExperience = "INSERT INTO EDUCATIONAL_DETAILS(" +
