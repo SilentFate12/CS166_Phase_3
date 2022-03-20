@@ -561,7 +561,7 @@ public class ProfNetwork {
 		 System.out.println(messageID);
 		 String insertMessageQuery = "INSERT INTO MESSAGE VALUES ('" + messageID + "', '" + authorisedUser +
 			 		     "', '" + userID + "', '" + userMessage + "', '" + currDate + "', 0, 'Sent')";
-		 esql.executeQuery(insertMessageQuery);
+		 esql.executeUpdate(insertMessageQuery);
 		 System.out.println("Message Sent!");
 	 }
          
@@ -633,7 +633,7 @@ if (foundRightUser) {
         	countQuery="SELECT C.connectionId FROM CONNECTION_USR C  WHERE C.userId= '"+authorisedUser+"' AND C.status='Accept' AND C.connectionId='"+connection+"'";
         	numC=esql.executeQuery(query);
 		
-        	while (connectionLevel<4 || numC<=00){
+        	while (connectionLevel<3 || numC>=0){
         		connectionLevel+=1;
         		query="SELECT C.connectionId FROM CONNECTION_USR C WHERE C.userId="+ query ;
 			countQuery="SELECT COUNT(*) FROM CONNECTION_USR WHERE "+query+"AND C.connectionId='"+connection+"'";
@@ -675,12 +675,12 @@ if (foundRightUser) {
 				 System.out.println("What do you want to do with the connection? (1 for Accept, 2 for Decline, 3 to exit): ");
 				 switch(readChoice()) {
 					 case 1: String acceptQuery = "UPDATE CONNECTION_USR C SET C.status = 'Accept' WHERE C.connectionId = '" +connectionID+"'";
-						 esql.executeQuery(acceptQuery);
+						 esql.executeUpdate(acceptQuery);
 						 System.out.println("Connection Accepted!");
 						 deciding2 = false;
 						 break;
 					 case 2: String declineQuery = "UPDATE CONNECTION_USR C SET C.status = 'Decline' WHERE C.connectionId = '" +connectionID+"'";
-						 esql.executeQuery(declineQuery);
+						 esql.executeUpdate(declineQuery);
 						 System.out.println("Connection Declined.");
 						 deciding2 = false;
 						 break;
