@@ -413,11 +413,22 @@ public class ProfNetwork {
    } 
    public static void FriendProfile(ProfNetwork esql, String authorisedUser){
       try{
-	 System.out.println("Input the name of the friend you'd like to visit: ");
-	 String friendName = in.readLine();
-         String query = "SELECT * FROM USR U2 WHERE U2.userID EXISTS IN(SELECT C.userID From CONNECTION_USR C WHERE C.connectionId EXISTS IN" + 
-		 "(SELECT U.userID FROM USR U WHERE U.name LIKE '%" + friendName + "%') AND C.userId = '" + authorisedUser + "')";
+	 String query = "SELECT * FROM CONNECTION_USR C WHERE (C.userId = '" + authorisedUser
+	 + "'OR C.connectionId='"+authorisedUser+"') AND C.status = 'Accept'";
          esql.executeQueryAndPrintResult(query);
+	 System.out.println("Input the name of the friend you'd like to visit or type [exit] to return to main menu: ");
+	 String friendName = in.readLine();
+	 while(friendName!="exit"){
+         query = "SELECT U.userId,U.email,U.name, W.degree, W.major, W.institutionName FROM USR U,WORK_DEPT W WHERE U.userId='"+friendName+"'AND W.userId='"+friendName+"'";
+         esql.executeQueryAndPrintResult(query);
+	 System.out.println("Type [enter] to continue or [exit] to return to main menu: ");
+	 friendName = in.readLine(); 
+		 if(friendName!="exit"){
+			String query = "SELECT * FROM CONNECTION_USR C WHERE (C.userId = '" + authorisedUser
+	 		+ "'OR C.connectionId='"+authorisedUser+"') AND C.status = 'Accept'"; 
+			  System.out.println("Input the name of the friend's friend you'd like to visit: ");
+		 }
+	 }
       }catch(Exception e){
          System.err.println (e.getMessage ());
       }
