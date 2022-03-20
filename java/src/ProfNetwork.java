@@ -276,10 +276,10 @@ public class ProfNetwork {
 		System.out.println("2. Goto Friend Profile");
                 System.out.println("3. Update Profile");
 		System.out.println("4. Change Password");
-                System.out.println("5. Write a new message");
-		System.out.println("6. View current messages");
+                System.out.println("5. Write New Message");
+		System.out.println("6. View Current Messages");
                 System.out.println("7. Send Connection Request");
-		System.out.println("8. Accept/Reject connection requests");
+		System.out.println("8. Accept/Reject Connection Requests");
 		System.out.println("9. Search People");
                 System.out.println(".........................");
                 System.out.println("10. Log out");
@@ -630,13 +630,13 @@ if (foundRightUser) {
         	canAdd=true;
         else {
         	query="SELECT * FROM CONNECTION_USR  WHERE userId= '"+authorisedUser+"' AND status='Accept'";
-        	countQuery="SELECT connectionId FROM CONNECTION_USR  WHERE userId= '"+authorisedUser+"' AND status='Accept' AND connectionId=Connection";
+        	countQuery="SELECT connectionId FROM CONNECTION_USR  WHERE userId= '"+authorisedUser+"' AND status='Accept' AND connectionId='"+connection+"'";
         	numC=esql.executeQuery(query);
 		
         	while (connectionLevel<4 || numC<=00){
         		connectionLevel+=1;
         		query="SELECT connectionId FROM CONNECTION_USR WHERE userId="+ query ;
-			countQuery="SELECT * FROM CONNECTION_USR WHERE "+query+"AND connectionId=Connection";
+			countQuery="SELECT * FROM CONNECTION_USR WHERE "+query+"AND connectionId'"+connection+"'";
        			numC=esql.executeQuery(countQuery);
         }
         if(numC>0&&connectionLevel<4)
@@ -646,6 +646,9 @@ if (foundRightUser) {
 		query="INSERT INTO CONNECTION_USR(userId,connectionId, status) VALUES('"+authorisedUser+"','"+connection+"','Request')";
 		esql.executeUpdate(query);
 		System.out.println ("Connection requested successfully created!");
+	}
+	else{
+		System.out.println ("ERROR, Connection not requested successfully created!");
 	}
   }
       }catch(Exception e){
@@ -663,7 +666,9 @@ if (foundRightUser) {
 	 while(deciding) {
 		 System.out.println("Select a connection to accept or decline using its connection ID " +
 				    "(If you wish to exit instead, Please Type [exit] {in all lower case}): ");
+		 
 		 String connectionID =in.readLine();
+		 
 		 if(connectionID!="exit") {
 			 deciding2 = true;
 			 while(deciding2){
