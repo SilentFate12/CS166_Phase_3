@@ -611,14 +611,14 @@ public class ProfNetwork {
         if(numC<5)
         	canAdd=true;
         else {
-        	query="SELECT * FROM CONNECTION_USR  WHERE userId= "+authorisedUser+" AND status='Accept'";
-        	countQuery="SELECT * FROM CONNECTION_USR  WHERE userId= "+authorisedUser+" AND status='Accept' AND ConnectionId=Connection";
+        	query="SELECT * FROM CONNECTION_USR  WHERE userId= '"+authorisedUser+"' AND status='Accept'";
+        	countQuery="SELECT connectionId FROM CONNECTION_USR  WHERE userId= '"+authorisedUser+"' AND status='Accept' AND connectionId=Connection";
         	numC=esql.executeQuery(query);
 		
         	while (connectionLevel<4 || numC<=00){
         		connectionLevel+=1;
-        		query="SELECT ConnectionId FROM CONNECTION_USR WHERE userId="+ query ;
-			countQuery="SELECT * FROM CONNECTION_USR WHERE "+query+"AND ConnectionId=Connection";
+        		query="SELECT connectionId FROM CONNECTION_USR WHERE userId="+ query ;
+			countQuery="SELECT * FROM CONNECTION_USR WHERE "+query+"AND connectionId=Connection";
        			numC=esql.executeQuery(countQuery);
         }
         if(numC>0&&connectionLevel<4)
