@@ -575,7 +575,7 @@ public class ProfNetwork {
 	 
 	 System.out.println("Displaying messages...");
 	 System.out.println("**********************");
-         String query = "SELECT * FROM Message M WHERE M.receiverId = '" + authorisedUser +"' AND (M.deleteStatus = 0 OR M.deleteStatus = 2)" ;
+         String query = "SELECT * FROM MESSAGE M WHERE M.receiverId = '" + authorisedUser +"' AND (M.deleteStatus = 0 OR M.deleteStatus = 2)" ;
          esql.executeQueryAndPrintResult(query);
 	 boolean deciding = true;
 	 while(deciding) {
@@ -583,7 +583,7 @@ public class ProfNetwork {
 		 switch(readChoice()) {
 			 case 1: System.out.println("Which message do you want to delete? (Enter full message ID here): ");
 				 String mID = in.readLine();
-				 String messageQuery = "UPDATE Message N SET N.deleteStatus=1 WHERE N.messageId = '" + mID+"'";
+				 String messageQuery = "UPDATE MESSAGE N SET N.deleteStatus=1 WHERE N.messageId = '" + mID+"'";
 				 esql.executeUpdate(messageQuery);
 				 System.out.println("Message successfully deleted for User!");
 				 deciding = false;
@@ -602,7 +602,7 @@ public class ProfNetwork {
 		     boolean searchingForUser = true;
 	 boolean foundRightUser = false;
 while(searchingForUser) {
-		 System.out.println("Input name (not userId) of user you would like to send a message to: ");
+		 System.out.println("Input name (not userId) of user you would like to connect with ");
 	 	 String userName = in.readLine();
 	 	 String userQuery = "SELECT userId, email, name, dateofbirth FROM USR WHERE name LIKE '%" + userName + "%'";
 	 	 esql.executeQueryAndPrintResult(userQuery);
@@ -622,21 +622,21 @@ if (foundRightUser) {
         int connectionLevel=0;
         boolean canAdd=false;
         String countQuery;
-        System.out.println("Please enter the exact userId of the user you want to message: ");
+        System.out.println("Please enter the exact userId of the user you want to connect with: ");
         String connection=in.readLine();
-        String query= "SELECT * FROM CONNECTION_USR WHERE userId='"+authorisedUser+"' AND status='Accept'";
+        String query= "SELECT * FROM CONNECTION_USR C WHERE C.userId='"+authorisedUser+"' AND C.status='Accept'";
         int numC=esql.executeQuery(query);
         if(numC<5)
         	canAdd=true;
         else {
-        	query="SELECT * FROM CONNECTION_USR  WHERE userId= '"+authorisedUser+"' AND status='Accept'";
-        	countQuery="SELECT connectionId FROM CONNECTION_USR  WHERE userId= '"+authorisedUser+"' AND status='Accept' AND connectionId='"+connection+"'";
+        	query="SELECT * FROM CONNECTION_USR C WHERE C.userId= '"+authorisedUser+"' AND C.status='Accept'";
+        	countQuery="SELECT C.connectionId FROM CONNECTION_USR C  WHERE C.userId= '"+authorisedUser+"' AND C.status='Accept' AND C.connectionId='"+connection+"'";
         	numC=esql.executeQuery(query);
 		
         	while (connectionLevel<4 || numC<=00){
         		connectionLevel+=1;
-        		query="SELECT connectionId FROM CONNECTION_USR WHERE userId="+ query ;
-			countQuery="SELECT * FROM CONNECTION_USR WHERE "+query+"AND connectionId'"+connection+"'";
+        		query="SELECT C.connectionId FROM CONNECTION_USR C WHERE C.userId="+ query ;
+			countQuery="SELECT * FROM CONNECTION_USR WHERE "+query+"AND C.connectionId='"+connection+"'";
        			numC=esql.executeQuery(countQuery);
         }
         if(numC>0&&connectionLevel<4)
