@@ -201,8 +201,8 @@ public class ProfNetwork {
     */
    public int getCurrSeqVal(String sequence) throws SQLException {
 	Statement stmt = this._connection.createStatement ();
-
-	ResultSet rs = stmt.executeQuery ("SELECT currval('"+sequence+"') FROM Message");
+	stmt.executeQuery ("SELECT nextval('"+sequence+"') FROM Message");
+	ResultSet rs = stmt.executeQuery ("SELECT currval('"+sequence+"') ");
 	if (rs.next())
 		return rs.getInt(1);
 	return -1;
