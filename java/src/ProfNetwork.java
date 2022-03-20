@@ -627,7 +627,7 @@ public class ProfNetwork {
 
       }catch(Exception e){
          System.err.println (e.getMessage ());
-         return null;
+         break;
       }
    }//end
 
