@@ -509,7 +509,7 @@ public class ProfNetwork {
 	 	if (authUser != null) {
 			 System.out.println("User recognized! Please input your new password: ");
 			 String newPass = in.readLine();	
-			 String passQuery = "UPDATE USR SET password = " + newPass + " WHERE userId = " + authUser+";";
+			 String passQuery = "UPDATE USR SET password = '" + newPass + "' WHERE userId = '" + authUser+"'";
 			 esql.executeUpdate(passQuery);
 			 System.out.println("Password successfully updated!");
 			 tryingToLogin = false;
