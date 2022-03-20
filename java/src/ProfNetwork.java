@@ -683,9 +683,7 @@ if (foundRightUser) {
 				    "(If you wish to exit instead, Please Type [Exit]): ");
 		 
 		 String connectionID =in.readLine();
-		 connectionID = connectionID.toLowerCase();
-		 System.out.println("you typed: " + connectionID);
-		 if(!connectionID.equals("exit")) {
+		 if(!connectionID.toLowerCase().equals("exit")) {
 			 deciding2 = true;
 			 while(deciding2){
 				 System.out.println("What do you want to do with the connection? (1 for Accept, 2 for Decline, 3 to exit): ");
