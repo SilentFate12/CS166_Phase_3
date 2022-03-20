@@ -685,7 +685,7 @@ if (foundRightUser) {
 		 String connectionID =in.readLine();
 		 connectionID = connectionID.toLowerCase();
 		 System.out.println("you typed: " + connectionID);
-		 if(connectionID != "exit") {
+		 if(!connectionID.equals("exit")) {
 			 deciding2 = true;
 			 while(deciding2){
 				 System.out.println("What do you want to do with the connection? (1 for Accept, 2 for Decline, 3 to exit): ");
