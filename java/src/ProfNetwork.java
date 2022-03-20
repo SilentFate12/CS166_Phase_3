@@ -659,7 +659,7 @@ if (foundRightUser) {
 
    public static void DecideRequests(ProfNetwork esql, String authorisedUser){
       try{
-         String query = "SELECT * FROM CONNECTION_USR C WHERE C.userId ='"+authorisedUser +"' AND C.status != 'Accept' AND C.status != 'Decline'";
+         String query = "SELECT * FROM CONNECTION_USR C WHERE C.connectionId ='"+authorisedUser +"' AND C.status != 'Accept' AND C.status != 'Reject'";
          esql.executeQueryAndPrintResult(query);
 	 boolean deciding = true;
 	 boolean deciding2 = false;
@@ -674,12 +674,12 @@ if (foundRightUser) {
 			 while(deciding2){
 				 System.out.println("What do you want to do with the connection? (1 for Accept, 2 for Decline, 3 to exit): ");
 				 switch(readChoice()) {
-					 case 1: String acceptQuery = "UPDATE CONNECTION_USR C SET C.status = 'Accept' WHERE C.connectionId = '" +connectionID+"'";
+					 case 1: String acceptQuery = "UPDATE CONNECTION_USR C SET C.status = 'Accept' WHERE C.userId = '" +connectionID+"'";
 						 esql.executeUpdate(acceptQuery);
 						 System.out.println("Connection Accepted!");
 						 deciding2 = false;
 						 break;
-					 case 2: String declineQuery = "UPDATE CONNECTION_USR C SET C.status = 'Decline' WHERE C.connectionId = '" +connectionID+"'";
+					 case 2: String declineQuery = "UPDATE CONNECTION_USR C SET C.status = 'Reject' WHERE C.userId = '" +connectionID+"'";
 						 esql.executeUpdate(declineQuery);
 						 System.out.println("Connection Declined.");
 						 deciding2 = false;
