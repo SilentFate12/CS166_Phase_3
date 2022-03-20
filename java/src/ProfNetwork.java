@@ -431,10 +431,16 @@ public class ProfNetwork {
 			if (!friendName.equals(authorisedUser)) {
 				connectionDepth++;
 			}
-			String viewFriendQuery = "SELECT U.userId,U.email,U.name, E.degree, E.major, E.instituitionName FROM USR U,EDUCATIONAL_DETAILS E WHERE " + 
-			"U.userId='"+friendName+"'AND E.userId='"+friendName+"'";
+			System.out.println("Current selected user: ");
+			String viewCurrFriend = "SELECT U.name, U.userId, U.email, U.dateOfBirth FROM USR U WHERE U.userId = '" +
+						friendName + "'";
+			System.out.println("Current user's friend list: ");
+			String viewFriendQuery = "SELECT U.name, U.userId, U.email, U.dateOfBirth FROM USR U WHERE U.userId IN " + 
+						 "(SELECT C.connectionID FROM CONNECTION_USR C WHERE C.userId = '" + friendName
+	 					 + "' AND C.status = 'Accept')";
 			esql.executeQueryAndPrintResult(viewFriendQuery);
 			System.out.println("What do you want to do? (1 to Send Message, 2 to Send Connection Request, 3 to Find Further Users, 4 to Exit): ");
+			boolean newFriendNeeded = false;
 			switch(readChoice()) {
 				case 1: SendMessage(esql, authorisedUser, friendName); break;
 				case 2: if (numOfFriends <= 5 && connectionDepth <= 5) {
@@ -444,10 +450,16 @@ public class ProfNetwork {
 					   System.out.println("Sorry! That user is too far away from you. Try someone closer!");
 					}
 					break;
-				case 3: break;
+				case 3: newFriendNeeded = true; break;
 				case 4: furtherLooking = false;
 					viewingFriends = false;
 					break;
+			}
+			
+			if (newFriendNeeded) {
+				newFriendNeeded = false;
+				System.out.println("Enter the new userId of the friend you'd like to visit: ");
+				friendName = in.readLine();
 			}
 		}
 		
