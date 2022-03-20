@@ -721,7 +721,7 @@ if (foundRightUser) {
       }
    }//end
    public static void SendConnectionRequest(ProfNetwork esql, String authorisedUser, String friendName) { //Overloaded function for FriendProfile functionality
-	query="INSERT INTO CONNECTION_USR(userId,connectionId, status) VALUES('"+authorisedUser+"','"+friendName+"','Request')";
+	String query = "INSERT INTO CONNECTION_USR(userId,connectionId, status) VALUES('"+authorisedUser+"','"+friendName+"','Request')";
 	esql.executeUpdate(query);
 	System.out.println ("Connection requested successfully created!");
    }
