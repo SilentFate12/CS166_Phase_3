@@ -651,7 +651,7 @@ public class ProfNetwork {
 		 switch(readChoice()) {
 			 case 1: System.out.println("Which message do you want to delete? (Enter full message ID here): ");
 				 String mID = in.readLine();
-				 String messageQuery = "UPDATE MESSAGE N SET N.deleteStatus=1 WHERE N.msgId = '" + mID+"'";
+				 String messageQuery = "UPDATE MESSAGE SET deleteStatus=1 WHERE msgId = '" + mID + "'";
 				 esql.executeUpdate(messageQuery);
 				 System.out.println("Message successfully deleted for User!");
 				 deciding = false;
