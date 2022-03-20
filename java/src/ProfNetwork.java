@@ -532,12 +532,45 @@ public class ProfNetwork {
 				 case 2: System.out.println("Which previous company are you updating for?: ");
 				 	 String prevCompany = in.readLine();
 				 	 break;
+				 case 3: break;
 				 default: System.out.println("Please select one of the three options.");
 				 	  break;
 			 }
 		 
 		 	 break;
-		 case 5: break;
+		 case 5: System.out.println("Which part of your School would you like to change?\n" +
+					    "*************************************************\n" +
+					    "OPTIONS:\n" +
+					    "1 for Adding a New School period\n" +
+					    "2 for Updating a Previous School period\n" +
+					    "3 to exit");
+			 switch(readChoice()) {
+				 case 1: System.out.println("Please input your school's name: ");
+				 	 String schoolName = in.readLine();
+				  	 System.out.println("Please input your major (N/A if High School or Lower): ");
+				 	 String major = in.readLine();
+				 	 System.out.println("Please input your degree (N/A if High School or Lower): ");
+				 	 String degree = in.readLine();
+				 	 System.out.println("Please input your starting date: ");
+				 	 String startingDate = in.readLine();
+				 	 System.out.println("Please input your ending date. If this is your current school, enter [Current]: ");
+				 	 String endDate = in.readLine();
+				 	 String createWorkExperience = "INSERT INTO EDUCATIONAL_DETAILS(" +
+						 "userId, institutionName, major, degree, startdate, enddate)" +
+						 " VALUES('" + authorisedUser + "',' " + schoolName + "', '" +
+						 major + "', '" + degree + "', '" + startDate + "', '" +
+						 endDate + "')";
+				 	 esql.executeUpdate(createWorkExperience);
+				 	 System.out.println("School History Created!");
+				 	 break;
+				 case 2: System.out.println("Which previous school are you updating for?: ");
+				 	 String prevSchool = in.readLine();
+				 	 break;
+				 case 3: break;
+				 default: System.out.println("Please select one of the three options.");
+				 	  break;
+			 }
+			 break;
 		 case 6: break;
 		 default: System.out.println("Unrecognized input, exiting...");
 			  break;
