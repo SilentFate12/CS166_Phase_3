@@ -405,7 +405,7 @@ public class ProfNetwork {
    public static void FriendList(ProfNetwork esql, String authorisedUser){
       try{
          String query = "SELECT * FROM CONNECTION_USR C WHERE C.userId = '" + authorisedUser
-	 + "' AND C.status = 'Accepted'";
+	 + "'OR C.connectionId='"+authorisedUser+"' AND C.status = 'Accept'";
          esql.executeQueryAndPrintResult(query);
       }catch(Exception e){
          System.err.println (e.getMessage ());
