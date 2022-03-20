@@ -437,6 +437,7 @@ public class ProfNetwork {
 			System.out.println("Current selected user: ");
 			String viewCurrFriend = "SELECT U.name, U.userId, U.email, U.dateOfBirth FROM USR U WHERE U.userId = '" +
 						friendName + "'";
+			esql.executeQueryAndPrintResult(viewCurrFriend);
 			System.out.println("Current user's friend list: ");
 			String viewFriendQuery = "SELECT U.name, U.userId, U.email, U.dateOfBirth FROM USR U WHERE U.userId IN " + 
 						 "(SELECT C.connectionID FROM CONNECTION_USR C WHERE C.userId = '" + friendName
