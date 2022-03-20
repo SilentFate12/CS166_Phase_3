@@ -114,7 +114,7 @@ public class ProfNetwork {
       while (rs.next()){
 	 if(outputHeader){
 	    for(int i = 1; i <= numCol; i++){
-		System.out.print(rsmd.getColumnName(i) + "\t");
+		System.out.print(rsmd.getColumnName(i).trim() + "\t");
 	    }
 	    System.out.println();
 	    outputHeader = false;
