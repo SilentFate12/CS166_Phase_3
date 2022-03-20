@@ -406,7 +406,7 @@ public class ProfNetwork {
       try{
          String query = "SELECT U.name, U.userId, U.email, U.dateOfBirth FROM USR U WHERE U.userId IN " + 
 		 "(SELECT C.connectionID FROM CONNECTION_USR C WHERE C.userId = '" + authorisedUser
-	 + "' AND C.status = 'Accept'";
+	 + "' AND C.status = 'Accept')";
          esql.executeQueryAndPrintResult(query);
       }catch(Exception e){
          System.err.println (e.getMessage ());
