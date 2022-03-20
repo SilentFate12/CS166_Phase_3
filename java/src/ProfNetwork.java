@@ -638,9 +638,9 @@ public class ProfNetwork {
 	 boolean deciding = true;
 	 while(deciding) {
 		 System.out.println("Select a connection to accept or decline using its connection ID " +
-				    "(If you wish to exit instead, Simply press [Enter]): ");
-		 String connectionID = in.readLine();
-		 if (connectionID != null||connectionID !="\n") {
+				    "(If you wish to exit instead, Please Type [exit] {in all lower case}): ");
+		 String connectionID =in.readLine();
+		 if (connectionID != null||connectionID !="exit") {
 			 boolean deciding2 = true;
 			 while(deciding2) {
 				 System.out.println("What do you want to do with the connection? (1 for Accept, 2 for Decline, 3 to exit): ");
