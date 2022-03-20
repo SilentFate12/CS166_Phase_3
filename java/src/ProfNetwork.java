@@ -120,7 +120,7 @@ public class ProfNetwork {
 	    outputHeader = false;
 	 }
          for (int i=1; i<=numCol; ++i)
-            System.out.print (rs.getString (i) + "\t");
+            System.out.print (rs.getString(i).trim() + "\t");
          System.out.println ();
          ++rowCount;
       }//end while
