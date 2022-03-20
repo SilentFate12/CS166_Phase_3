@@ -556,7 +556,7 @@ public class ProfNetwork {
 				 	 System.out.println("Please input your ending date. If this is your current school, enter [Current]: ");
 				 	 String endDate = in.readLine();
 				 	 String createWorkExperience = "INSERT INTO EDUCATIONAL_DETAILS(" +
-						 "userId, institutionName, major, degree, startdate, enddate)" +
+						 "userId, instituitionName, major, degree, startdate, enddate)" +
 						 " VALUES('" + authorisedUser + "',' " + schoolName + "', '" +
 						 major + "', '" + degree + "', '" + startDate + "', '" +
 						 endDate + "')";
