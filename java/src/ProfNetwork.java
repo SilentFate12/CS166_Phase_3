@@ -606,7 +606,7 @@ public class ProfNetwork {
         String countQuery;
         System.out.println("enter ConnectionId of Recipient");
         String connection=in.readLine();
-        String query= "SELECT * FROM Connection WHERE userId="+authorisedUser+" AND status='Accept";
+        String query= "SELECT * FROM Connection WHERE userId="+authorisedUser+" AND status='Accept'";
         int numC=esql.executeQuery(query);
         if(numC<5)
         	canAdd=true;
