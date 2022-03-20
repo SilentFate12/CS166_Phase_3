@@ -690,12 +690,13 @@ if (foundRightUser) {
 			 while(deciding2){
 				 System.out.println("What do you want to do with the connection? (1 for Accept, 2 for Decline, 3 to exit): ");
 				 switch(readChoice()) {
-					 case 1: String acceptQuery = "UPDATE CONNECTION_USR SET status = 'Accept' WHERE connectionId = '" + connectionID + "'";
-						 esql.executeUpdate(acceptQuery);
+					 case 1: String acceptQuery = "UPDATE CONNECTION_USR SET status = 'Accept' WHERE connectionId = '" + connectionID + 
+						 "' AND userId = '" + authorisedUser + "'";
 						 System.out.println("Connection Accepted!");
 						 deciding2 = false;
 						 break;
-					 case 2: String declineQuery = "UPDATE CONNECTION_USR SET status = 'Reject' WHERE connectionId = '" + connectionID + "'";
+					 case 2: String declineQuery = "UPDATE CONNECTION_USR SET status = 'Reject' WHERE connectionId = '" + connectionID + 
+						 "' AND userId = '" + authorisedUser + "'";
 						 esql.executeUpdate(declineQuery);
 						 System.out.println("Connection Declined.");
 						 deciding2 = false;
