@@ -559,7 +559,7 @@ public class ProfNetwork {
 		 System.out.println("Please enter the message you wish to send. Do not press [Enter] until your message is complete: ");
 		 String userMessage = in.readLine();
 		 Date currDate = new Date();
-		 String sequence = "SELECT * FROM Message M WHERE M.messageId>0";
+		 String sequence = "SELECT * FROM Message M WHERE M.msgId>0";
 		 int messageID = esql.executeQuery(sequence)+1; //Needs to be a sequence value, will fix in future.
 		 System.out.println(messageID);
 		 String insertMessageQuery = "INSERT INTO Message VALUES ('" + messageID + "', '" + authorisedUser +
