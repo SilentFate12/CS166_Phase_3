@@ -419,7 +419,7 @@ public class ProfNetwork {
 	 System.out.println("Input the name of the friend you'd like to visit or type [exit] to return to main menu: ");
 	 String friendName = in.readLine();
 	 while(friendName!="exit"){
-         query = "SELECT U.userId,U.email,U.name, W.degree, W.major, W.institutionName FROM USR U,WORK_DEPT W WHERE U.userId='"+friendName+"'AND W.userId='"+friendName+"'";
+         query = "SELECT U.userId,U.email,U.name, E.degree, E.major, E.institutionName FROM USR U,EDUCATIONAL_DETAILS E WHERE U.userId='"+friendName+"'AND E.userId='"+friendName+"'";
          esql.executeQueryAndPrintResult(query);
 	 System.out.println("Type [enter] to continue or [exit] to return to main menu: ");
 	 friendName = in.readLine(); 
