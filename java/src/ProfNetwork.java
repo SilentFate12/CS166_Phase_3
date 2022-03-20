@@ -559,7 +559,7 @@ public class ProfNetwork {
 		 System.out.println("Please enter the message you wish to send. Do not press [Enter] until your message is complete: ");
 		 String userMessage = in.readLine();
 		 Date currDate = new Date();
-		 String sequence = "SELECT * FROM Message M";
+		 String sequence = "SELECT * FROM Message M WHERE M.messageId>0";
 		 int messageID = esql.executeQuery(sequence)+1; //Needs to be a sequence value, will fix in future.
 		 System.out.println(messageID);
 		 String insertMessageQuery = "INSERT INTO Message VALUES ('" + messageID + "', '" + authorisedUser +
@@ -586,7 +586,7 @@ public class ProfNetwork {
 			 case 1: System.out.println("Which message do you want to delete? (Enter full message ID here): ");
 				 String mID = in.readLine();
 				 String messageQuery = "UPDATE Message N SET N.deleteStatus=1 WHERE N.messageId = '" + mID+"'";
-				 esql.executeQuery(messageQuery);
+				 esql.executeUpdate(messageQuery);
 				 System.out.println("Message successfully deleted!");
 				 deciding = false;
 				 break;
