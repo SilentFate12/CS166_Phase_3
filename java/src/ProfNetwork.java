@@ -404,7 +404,7 @@ public class ProfNetwork {
  */
    public static void FriendList(ProfNetwork esql, String authorisedUser){
       try{
-         String query = "SELECT U.name, U.userId, U.email, U.dateOfBirth FROM USR U WHERE U.userId EXISTS IN" + 
+         String query = "SELECT U.name, U.userId, U.email, U.dateOfBirth FROM USR U WHERE U.userId IN " + 
 		 "(SELECT C.connectionID FROM CONNECTION_USR C WHERE C.userId = '" + authorisedUser
 	 + "' AND C.status = 'Accept'";
          esql.executeQueryAndPrintResult(query);
