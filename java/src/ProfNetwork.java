@@ -420,7 +420,7 @@ public class ProfNetwork {
 		String query = "SELECT U.name, U.userId, U.email, U.dateOfBirth FROM USR U WHERE U.userId IN " + 
 		"(SELECT C.connectionID FROM CONNECTION_USR C WHERE C.userId = '" + authorisedUser
 	 	+ "' AND C.status = 'Accept')";
-         	esql.executeQueryAndPrintResult(query);
+         	int numOfFriends = esql.executeQueryAndPrintResult(query);
 	 	System.out.println("Input the userId of the friend you'd like to visit or type [Exit] to return to main menu: ");
 	 	String friendName = in.readLine();
 		boolean furtherLooking = false;
@@ -428,14 +428,22 @@ public class ProfNetwork {
 			furtherLooking = true;
 		}
 		while(furtherLooking){
-			connectionDepth++;
+			if (!friendName.equals(authorisedUser)) {
+				connectionDepth++;
+			}
 			String viewFriendQuery = "SELECT U.userId,U.email,U.name, E.degree, E.major, E.instituitionName FROM USR U,EDUCATIONAL_DETAILS E WHERE " + 
 			"U.userId='"+friendName+"'AND E.userId='"+friendName+"'";
 			esql.executeQueryAndPrintResult(viewFriendQuery);
 			System.out.println("What do you want to do? (1 to Send Message, 2 to Send Connection Request, 3 to Find Further Users, 4 to Exit): ");
 			switch(readChoice()) {
 				case 1: SendMessage(esql, authorisedUser, friendName); break;
-				case 2: break;
+				case 2: if (numOfFriends <= 5 && connectionDepth <= 5) {
+					   SendConnectionRequest(esql, authorisedUser, friendName);
+					}
+					else {
+					   System.out.println("Sorry! That user is too far away from you. Try someone closer!");
+					}
+					break;
 				case 3: break;
 				case 4: furtherLooking = false;
 					viewingFriends = false;
@@ -700,7 +708,11 @@ if (foundRightUser) {
          System.err.println (e.getMessage ());
       }
    }//end
-
+   public static void SendConnectionRequest(esql, authorisedUser, friendName) { //Overloaded function for FriendProfile functionality
+	query="INSERT INTO CONNECTION_USR(userId,connectionId, status) VALUES('"+authorisedUser+"','"+friendName+"','Request')";
+	esql.executeUpdate(query);
+	System.out.println ("Connection requested successfully created!");
+   }
 
    public static void DecideRequests(ProfNetwork esql, String authorisedUser){
       try{
