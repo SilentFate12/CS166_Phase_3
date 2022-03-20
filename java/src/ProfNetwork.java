@@ -96,7 +96,6 @@ public class ProfNetwork {
     */
    public int executeQueryAndPrintResult (String query) throws SQLException {
       // creates a statement object
-	   query="SELECT trim(from("+query+")";
       Statement stmt = this._connection.createStatement ();
 
       // issues the query instruction
