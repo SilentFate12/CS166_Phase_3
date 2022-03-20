@@ -434,7 +434,7 @@ public class ProfNetwork {
 			esql.executeQueryAndPrintResult(viewFriendQuery);
 			System.out.println("What do you want to do? (1 to Send Message, 2 to Send Connection Request, 3 to Find Further Users, 4 to Exit): ");
 			switch(readChoice()) {
-				case 1: break;
+				case 1: SendMessage(esql, authorisedUser, friendName); break;
 				case 2: break;
 				case 3: break;
 				case 4: furtherLooking = false;
