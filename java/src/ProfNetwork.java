@@ -633,7 +633,7 @@ public class ProfNetwork {
 
    public static void DecideRequests(ProfNetwork esql, String authorisedUser){
       try{
-         String query = "SELECT * FROM CONNECTION_USR C WHERE C.userId ='"+authorisedUser +"' AND C.status != Accept AND C.status != Decline";
+         String query = "SELECT * FROM CONNECTION_USR C WHERE C.userId ='"+authorisedUser +"' AND C.status != 'Accept' AND C.status != 'Decline'";
          esql.executeQueryAndPrintResult(query);
 	 boolean deciding = true;
 	 while(deciding) {
